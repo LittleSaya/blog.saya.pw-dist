@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Hexo Theme Keep">
+    <meta name="description" content="blog">
+    <meta name="author" content="Saya">
+    
+    <title>
+        
+            模糊连接度 by 阿兵-AI医疗@CSDN |
+        
+        ToL
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <link rel="shortcut icon" href="/images/favicon_32x32.ico">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/font/css/fontawesome.min.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/font/css/regular.min.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/font/css/solid.min.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/font/css/brands.min.css">
+    <script id="hexo-configurations">
+    let KEEP = window.KEEP || {}
+    KEEP.hexo_config = {"hostname":"blog.saya.pw","root":"/","language":"zh-CN"}
+    KEEP.theme_config = {"toc":{"enable":true,"number":true,"expand_all":false,"init_open":true},"style":{"primary_color":"#0066cc","logo":"/images/logo.png","favicon":"/images/favicon_32x32.ico","avatar":"/images/avatar.jpg","font_size":null,"font_family":null,"hover":{"shadow":true,"scale":true},"first_screen":{"enable":true,"header_transparent":true,"background_img":"/images/fs/魔女の家.webp","description":" ","font_color":null,"hitokoto":false},"scroll":{"progress_bar":false,"percent":false}},"local_search":{"enable":false,"preload":false},"code_copy":{},"code_block":{"tools":{"enable":false,"style":"default"},"highlight_theme":"default"},"side_tools":{},"pjax":{"enable":false},"lazyload":{"enable":false},"comment":{"enable":false,"use":"valine","valine":{"appid":null,"appkey":null,"server_urls":null,"placeholder":null},"gitalk":{"github_id":null,"github_admins":null,"repository":null,"client_id":null,"client_secret":null,"proxy":null},"twikoo":{"env_id":null,"region":null,"version":"1.6.8"},"waline":{"server_url":null,"reaction":false,"version":2}},"post":{"author_label":{"enable":false,"auto":true,"custom_label_list":["Trainee","Engineer","Architect"]},"word_count":{"enable":false,"wordcount":false,"min2read":false},"img_align":"left","copyright_info":false},"version":"3.6.1"}
+    KEEP.language_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 个月前","year":"%s 年前"}
+    KEEP.language_code_block = {"copy":"复制代码","copied":"已复制","fold":"折叠代码块","folded":"已折叠"}
+    KEEP.language_copy_copyright = {"copy":"复制版权信息","copied":"已复制","title":"原文标题","author":"原文作者","link":"原文链接"}
+  </script>
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            
+<header class="header-wrapper">
+
+    <div class="header-content">
+        <div class="left">
+            
+                <a class="logo-image" href="/">
+                    <img src="/images/logo.png">
+                </a>
+            
+            <a class="logo-title" href="/">
+               ToL
+            </a>
+        </div>
+
+        <div class="right">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/"
+                            >
+                                首页
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >
+                                归档
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/tags"
+                            >
+                                标签
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/categories"
+                            >
+                                分类
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/about"
+                            >
+                                关于
+                            </a>
+                        </li>
+                    
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/">首页</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives">归档</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/tags">标签</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/categories">分类</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/about">关于</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="post-page-container">
+        <div class="article-content-container">
+
+            <div class="article-title">
+                <span class="title-hover-animation">模糊连接度 by 阿兵-AI医疗@CSDN</span>
+            </div>
+
+            
+                <div class="article-header">
+                    <div class="avatar">
+                        <img src="/images/avatar.jpg">
+                    </div>
+                    <div class="info">
+                        <div class="author">
+                            <span class="name">Saya</span>
+                            
+                        </div>
+                        <div class="meta-info">
+                            
+<div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        
+            <i class="fa-regular fa-calendar-plus"></i>&nbsp;
+        
+        <span class="pc">2023-06-04 00:30:42</span>
+        <span class="mobile">2023-06-04 00:30</span>
+    </span>
+    
+        <span class="article-update-date article-meta-item">
+        <i class="fas fa-file-pen"></i>&nbsp;
+        <span class="pc">2023-06-08 22:42:13</span>
+    </span>
+    
+    
+        <span class="article-categories article-meta-item">
+            <i class="fas fa-folder"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/categories/%E8%BD%AC%E8%BD%BD%E5%92%8C%E7%BF%BB%E8%AF%91/">转载和翻译</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fas fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/%E5%8C%BB%E5%AD%A6%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/">医学图像处理</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/%E8%BD%AC%E8%BD%BD/">转载</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/%E7%BF%BB%E8%AF%91/">翻译</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+    
+    
+</div>
+
+                        </div>
+                    </div>
+                </div>
+            
+
+            <div class="article-content keep-markdown-body">
+                
+
+                <p>原文链接：<a class="link"   target="_blank" rel="noopener" href="https://blog.csdn.net/webzhuce/article/details/115497180"  title="模糊连接度">模糊连接度<i class="fas fa-external-link-alt"></i></a></p>
+<p>出于学习目的转载，主要翻译了原文图片中的英文内容，并修正了一些本人认为是笔误的地方。</p>
+<h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><p>随机性和模糊性是两种不同的不确定性，概率论用于前者，而模糊集合则用于后者。由于模糊集合理论能够很好地表述和处理不确定性问题，所以模糊集合理论在图像分割领域获得广泛应用。由于在模糊集合中，图像的一个像素属于一个边界点或某个区域是用一个隶属度表示的，因此这样就可以避免过早地做出明确判断，已便为更高级的处理保留尽可能多的信息。</p>
+<p>在传统集合理论中，一个元素或者属于一个集合，或者不属于一个集合。但在实际问题中，往往需要表示元素对集合从属关系的不确定性。1965年，Zadeh提出模糊数学的概念，用来描述这种带有模糊不确定性的现象和事物。传统图像分割方法在面对边界本身就是不清晰的目标物体时，很难准确定义目标物体的区域。一种自然的方法就是用模糊性来描述图像。在图像处理中，“连接”用来描述图像的拓扑关系及区域的<del>熟悉</del>顺序。1979年，Rosenfeld首先将“连接”扩展到模糊集领域，描述无法精确定义的区域。在此基础上，Upupa提出了基于模糊连接度的图像分割框架。其主要思想是：每两个相邻的像素组成一条连边，将隶属函数应用于此连边，该函数输出一个0到1之间的隶属度值来表示连边属于感兴趣对象的程度，在此基础上建立像素到待分割目标之间的相似关系，此关系称为模糊连接。并依此关系来度量像素对的目标从属程度。</p>
+<p>许多图像分割算法都是基于各个区域之间（或区域内）的硬编码关系，模糊算法考虑了各种不确定性，例如噪声，不均匀的照度&#x2F;亮度&#x2F;对比度差异。FC已经在医学（和其他）图像中获得了巨大的成功。</p>
+<p>Udupa和Samarasekera是最早在医学图像中使用FC的人(Graphical Models and Image Processing, 1996).FC Family</p>
+<ul>
+<li>Absolute FC</li>
+<li>Scale-based FC (b-, t-, g-scale based)</li>
+<li>Relative FC</li>
+<li>Iterative Relative FC</li>
+<li>Vectorial FC</li>
+<li>Hierarchical FC</li>
+<li>Model-based FC</li>
+</ul>
+<p><em>搬运者注：FC应该是Fuzzy Connectedness的缩写，上面的列表应该是各种模糊连接度算法的变种。</em></p>
+<h1 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h1><p>结合《Fuzzy Connectedness and Object Definition: Theory, Algorithms, and Applications in Image Segmentation》介绍相关概念。</p>
+<h2 id="模糊集，隶属函数和模糊关系"><a href="#模糊集，隶属函数和模糊关系" class="headerlink" title="模糊集，隶属函数和模糊关系"></a>模糊集，隶属函数和模糊关系</h2><p>模糊集(Fuzzy Subsets)，隶属函数(Membership Function)，模糊关系(Fuzzy Relation)</p>
+<img src="/2023/06/04/%E8%BD%AC%E8%BD%BD%E5%92%8C%E7%BF%BB%E8%AF%91/%E6%A8%A1%E7%B3%8A%E8%BF%9E%E6%8E%A5%E5%BA%A6%20by%20%E9%98%BF%E5%85%B5-AI%E5%8C%BB%E7%96%97@CSDN/%E6%A8%A1%E7%B3%8A%E9%9B%86%EF%BC%8C%E9%9A%B6%E5%B1%9E%E5%87%BD%E6%95%B0%E5%92%8C%E6%A8%A1%E7%B3%8A%E5%85%B3%E7%B3%BB.png" class="">
+
+<p><em>搬运者翻译：</em></p>
+<figure>
+
+<p>令 X 为任意参考集， X 的模糊集 A 是一个有序对的集合</p>
+<figure>
+
+<p>A &#x3D; { (x, μ<sub>A</sub>(x)) | x ∈ X } (2.1)</p>
+</figure>
+
+<p>其中</p>
+<figure>
+
+<p>μ<sub>A</sub>: X → [0, 1] (2.2)</p>
+</figure>
+
+<p>是集合 A 在集合 X 内的隶属函数。</p>
+<p>如果存在 x ∈ X 使得 μ<sub>A</sub>(x) ≠ 0 ，那么我们认为集合 A 是非空的。 X 的空模糊集标记为 Φ ，其对所有 x ∈ X 均满足 μ<sub>Φ</sub>(x) &#x3D; 0 。我们使用 Φ 标记任意参考集的空模糊集，使用 φ 标记任意参考集的空非模糊集。集合 X 的模糊集 A 和 模糊集 B 之间的模糊交集和模糊并集定义如下：</p>
+<p>并集： A ∪ B &#x3D; { (x, μ<sub>A∪B</sub>(x)) | x ∈ X } ，其中对所有 x ∈ X ， μ<sub>A∪B</sub>(x) &#x3D; max[μ<sub>A</sub>(x), μ<sub>B</sub>(x)]</p>
+<p>交集： A ∩ B &#x3D; { (x, μ<sub>A∩B</sub>(x)) | x ∈ X } ，其中对所有 x ∈ X ， μ<sub>A∩B</sub>(x) &#x3D; min[μ<sub>A</sub>(x), μ<sub>B</sub>(x)]</p>
+<p>集合 X 内的一个模糊关系 ρ 是 X × X 的一个模糊集</p>
+<figure>
+
+<p>ρ &#x3D; { ((x, y), μ<sub>ρ</sub>(x, y)) | (x, y) ∈ X × X } (2.3)</p>
+</figure>
+
+<p>其中</p>
+<figure>
+
+<p>μρ: X × X → [0, 1] (2.4)</p>
+</figure>
+</figure>
+
+<p><em>搬运者注：并集定义在图片中是 A ∪ B &#x3D; { (x, μ<sub>A∪B</sub>(x)) | x ∈ X } ，其中对所有 x ∈ X ， μ<sub>A∪B</sub>(x) &#x3D; max[μ<sub>A</sub>(x), μβ<sub>B</sub>(x)] ，因为图片中后来没有提到那个 β 是什么，而且和交集的定义不对称，所以我觉得它是笔误，因此把它去除了。</em></p>
+<p><em>搬运者注：我不熟悉数学，但是我觉得 X × X 的含义应该是一个新的集合，这个集合中的每个元素都是一对元素，这一对元素中的第一个属于 X ，第二个也属于 X ，所以才有 (x, y) ∈ X × X 这种写法。如果我的理解不对，欢迎邮件指正，本人的联系方式见网站右上角的“关于”页面</em></p>
+<h2 id="模糊邻近关系，模糊数字空间"><a href="#模糊邻近关系，模糊数字空间" class="headerlink" title="模糊邻近关系，模糊数字空间"></a>模糊邻近关系，模糊数字空间</h2><p>模糊邻近关系(Fuzzy Spel Adjacency)，模糊数字空间(Fuzzy Digital Space)</p>
+<img src="/2023/06/04/%E8%BD%AC%E8%BD%BD%E5%92%8C%E7%BF%BB%E8%AF%91/%E6%A8%A1%E7%B3%8A%E8%BF%9E%E6%8E%A5%E5%BA%A6%20by%20%E9%98%BF%E5%85%B5-AI%E5%8C%BB%E7%96%97@CSDN/%E6%A8%A1%E7%B3%8A%E9%82%BB%E8%BF%91%E5%85%B3%E7%B3%BB%EF%BC%8C%E6%A8%A1%E7%B3%8A%E6%95%B0%E5%AD%97%E7%A9%BA%E9%97%B4.png" class="">
+
+<p><em>搬运者翻译：</em></p>
+<figure>
+
+<p>令 N 维欧几里得空间 R<sup>n</sup> 被 n 个相互正交的平行超平面族分割为超立方体，我们可以假设，在不损失目的的泛用性的前提下，每个族中的超平面都有相等的单位空间，使得分割成的超立方体是单位超立方体，并且我们可以选择坐标，使得每个超立方体的中心都有整数坐标。我们称这些超立方体为 <em>spels</em> （“ space elements ”的缩写）。当 <em>n &#x3D; 2</em> 时， spels 叫做 <em>pixels</em> ，当 <em>n &#x3D; 3</em> 时，它们叫做 <em>voxels</em> 。一个 spel 中心的坐标是一个整数的 N 元组，其在 Z<sup>n</sup> 中定义了一个点。对任意 spel c 和 1 ≤ j ≤ n ，我们将 c 的中心的第 j 个坐标标记为 c<sub>j</sub> 。在上述对 spel 的解释下，我们可以认为 Z<sup>n</sup> 就是 R<sup>n</sup> 中所有 spel 的集合，并且我们可以在 Z<sup>n</sup> 中互换地使用 spel 和点的概念。</p>
+<p>如果 Z<sup>n</sup> 中的模糊关系 α 是自反且对称的，那么它就被认为是一个模糊临近关系。一个合适的 α 可以使 <em>μ<sub>a</sub>(c, d)</em> 是 <em>c</em> 和 <em>d</em> 之间距离 ‖<em>c - d</em>‖ 的非增函数，其中 ‖·‖ 代表 R<sup>n</sup> 中的任意 <em>L2</em> 范数。</p>
+<p>举例来说，模糊关系 ω 定义了一个模糊临近关系：</p>
+<p>（太长，省略，直接看图吧） (2.8)</p>
+<p>其中 <em>k<sub>1</sub></em> 是一个非负常量。很容易就能看出在数字拓扑中常用的非模糊临近关系是模糊临近关系的特例。</p>
+</figure>
+
+<p><em>搬运者注：这张图片中有很多数学专业的词汇，翻译可能不准确。</em></p>
+<p><em>搬运者注：最后那个函数的第一个分支通俗点讲大致是这样：μ<sub>ω</sub>(c, d) &#x3D; 1 &#x2F; (1 - cd之间的距离)，是一个和距离成反比的函数，前提条件是，两点各个对应坐标的差的绝对值的和要小于维度 n。我其实不太理解这个前提条件的意义所在……第一次看见以为是把函数值限制在大于等于0的范围内，但是当三个坐标差都为1的时候，那距离应该大于1啊。</em></p>
+<p>模糊邻近关系描述的是两个空间元素之间的位置关系。</p>
+<h2 id="场景，隶属度场，二值场"><a href="#场景，隶属度场，二值场" class="headerlink" title="场景，隶属度场，二值场"></a>场景，隶属度场，二值场</h2><p>场景(Scenes)，隶属度场(Membership Scenes)，二值场(Binary Scenes)</p>
+<img src="/2023/06/04/%E8%BD%AC%E8%BD%BD%E5%92%8C%E7%BF%BB%E8%AF%91/%E6%A8%A1%E7%B3%8A%E8%BF%9E%E6%8E%A5%E5%BA%A6%20by%20%E9%98%BF%E5%85%B5-AI%E5%8C%BB%E7%96%97@CSDN/%E5%9C%BA%E6%99%AF%EF%BC%8C%E9%9A%B6%E5%B1%9E%E5%BA%A6%E5%9C%BA%EF%BC%8C%E4%BA%8C%E5%80%BC%E5%9C%BA.png" class="">
+
+<p><em>搬运者翻译：</em></p>
+<figure>
+
+<p>一个模糊数字空间中的一个场景 (Z<sup>n</sup>, α) 是一个对 l &#x3D; (C, f) ，其中 C &#x3D; { c | -b<sub>j</sub> ≤ c<sub>j</sub> ≤ b<sub>j</sub> 其中 b 属于 Z<sub>+</sub><sup>n</sup> } ，Z<sub>+</sub><sup>n</sup> 是正整数的 n 元组的集合，并且 f 是一个函数，这个函数的域是 C ， C 叫做“场景域”，“场景域”的范围是一个数字的集合。 (Z<sup>n</sup>, α) 上的任意一个 f 在范围 [0, 1] 之中的场景 l 被称为 (Z<sup>n</sup>, α) 上的隶属度场。如果 Z<sup>n</sup> 上的隶属度场 l 的 f 属于 {0, 1} ，那么我们称 l 为 (Z<sup>n</sup>, α) 上的二值场。如果存在 c ∈ C 使得 f(c) ≠ 0 ，那么 l 就被称为是非空的。</p>
+<p>对一个由所有 spels c ∈ C 构成的集合，不同的两个，坐标 c<sub>i</sub> ， c<sub>j</sub> 是固定的，并且限制 f 在那个集合，将被称为 l 的 c<sub>i</sub>c<sub>j</sub>-slice 。</p>
+</figure>
+
+<p><em>搬运者注：最后一段实在是看不懂，我觉得主要是英文水平不行。</em></p>
+<h2 id="亲和度"><a href="#亲和度" class="headerlink" title="亲和度"></a>亲和度</h2><p>亲和度(Fuzzy Spel Affinities)</p>
+<img src="/2023/06/04/%E8%BD%AC%E8%BD%BD%E5%92%8C%E7%BF%BB%E8%AF%91/%E6%A8%A1%E7%B3%8A%E8%BF%9E%E6%8E%A5%E5%BA%A6%20by%20%E9%98%BF%E5%85%B5-AI%E5%8C%BB%E7%96%97@CSDN/%E4%BA%B2%E5%92%8C%E5%BA%A6.png" class="">
+
+<p><em>搬运者翻译：</em></p>
+<figure>
+
+<p>令 l &#x3D; (C, f) 是 (Z<sup>n</sup>, α) 上的一个隶属度场，如果 C 中的任意模糊关系 κ 是自反且对称的，那么就称其为 l 上的一个亲和度。实际上，我们希望 κ 能够使 μ<sub>κ</sub>(c, d) 是 μ<sub>α</sub>(c, d) 、 f(c) 、 f(d) 甚至是 c 和 d 自身的函数。</p>
+<p>一个亲和度的例子可以是一个以如下方式定义的模糊关系 ζ ：</p>
+<p>令 l &#x3D; (C, f) 为 (Z<sup>n</sup>, ω) 上的一个隶属场，其中 ω 的定义取自 (2.8) （参考“模糊邻近关系，模糊数字空间”），对所有 (c, d) ∈ C × C ，定义</p>
+<p>（直接看图片吧）(2.9)</p>
+<p>其中 k<sub>2</sub> 是一个非负整数。容易看出 ζ 是 l 中的一个亲和度。显而易见， c 和 d 之间的距离越近，并且它们在 l 中的隶属值越接近，它们的亲和度就越高。</p>
+</figure>
+
+<p><em>搬运者注：我觉得，这些图片中的文字定义了两个函数，第一个函数计算空间上的近似度，这当然是越近越相似，这第一个函数就是 μ<sub>ω</sub> ；第二个函数计算了逻辑上的相似度，这个函数就是 f 。两个函数共同作用，算出亲和度。</em></p>
+<p>亲和度是一个局部关系，考虑了邻近关系和和像素亮度的均匀性。</p>
+<h2 id="路径，模糊连接度"><a href="#路径，模糊连接度" class="headerlink" title="路径，模糊连接度"></a>路径，模糊连接度</h2><p>路径</p>
+<img src="/2023/06/04/%E8%BD%AC%E8%BD%BD%E5%92%8C%E7%BF%BB%E8%AF%91/%E6%A8%A1%E7%B3%8A%E8%BF%9E%E6%8E%A5%E5%BA%A6%20by%20%E9%98%BF%E5%85%B5-AI%E5%8C%BB%E7%96%97@CSDN/%E8%B7%AF%E5%BE%84.png" class="">
+
+<p><em>搬运者翻译：</em></p>
+<figure>
+
+<p>使 l &#x3D; (C, f) 为模糊数字空间 (Z<sup>n</sup>, α) 上的一个隶属场，并且令 κ 为 l 中的一个亲和度。</p>
+<p>l 中的一个非空路径 p<sub>cd</sub> 从 spel c ∈ C 到 spel d ∈ C 是一个序列﹤c<sup>(1)</sup>, c<sup>(2)</sup>,…, c<sup>m</sup>﹥其中 m ≥ 2 个 spel ，所有 spel 都在 C 中，其中 c<sup>(1)</sup> &#x3D; c 、 c<sup>(m)</sup> &#x3D; d 。注意序列中的其他 spel 可以是任意的——不一定是完全各不相同的—— C 中的元素。在 l 中从 c 到 d 的空路径标记为﹤﹥，一个没有元素的序列。 P<sub>cd</sub> 代表 l 中从 c 到 d 的所有（空或非空）的路径。我们使用 P<sub>l</sub> 标记 l 中所有路径的集合，其定义为 P<sub>l</sub> &#x3D; ∪<sub>(c,d)∈C×C</sub>P<sub>cd</sub> 。l 中的模糊 κ-net N 是 P<sub>l</sub> 中的一个模糊子集，其隶属度函数定义如下：对所有 p &#x3D; ﹤c<sup>(1)</sup>, c<sup>(2)</sup>,…,c<sup>(m)</sup>﹥ ∈ P<sub>l</sub> ，</p>
+<figure>
+
+<p>μ<sub>N</sub> &#x3D; min[</p>
+<figure>
+
+<p>μ<sub>κ</sub>(c<sup>(1)</sup>,c<sup>(2)</sup>),</p>
+<p>μ<sub>κ</sub>(c<sup>(2)</sup>,c<sup>(3)</sup>),</p>
+<p>…,</p>
+<p>μ<sub>κ</sub>(c<sup>(m-1)</sup>,c<sup>(m)</sup>)</p>
+</figure>
+
+<p>] ，</p>
+</figure>
+
+<p>并且</p>
+<figure>
+
+<p>μ<sub>N</sub>(﹤﹥) &#x3D; 0 。</p>
+</figure>
+</figure>
+
+<p><em>搬运者注：函数 μ<sub>N</sub>(p) 的意思应该指的是：路径的隶属度等于路径中两两相邻的点之间的最小亲和度。</em></p>
+<p>模糊连接度</p>
+<img src="/2023/06/04/%E8%BD%AC%E8%BD%BD%E5%92%8C%E7%BF%BB%E8%AF%91/%E6%A8%A1%E7%B3%8A%E8%BF%9E%E6%8E%A5%E5%BA%A6%20by%20%E9%98%BF%E5%85%B5-AI%E5%8C%BB%E7%96%97@CSDN/%E6%A8%A1%E7%B3%8A%E8%BF%9E%E6%8E%A5%E5%BA%A6.png" class="">
+
+<p><em>搬运者翻译：</em></p>
+<figure>
+
+<p>令 l &#x3D; (C, f) 是 (Z<sup>n</sup>, α) 上的一个隶属场，令 κ 为 l 中的一个模糊亲和度，并且令 N 为 l 的模糊 κ-net 。 l 中的模糊 κ-connectedness ，标记为 K ，是 C 中的一个模糊关系，其定义如下。对 C 中的所有 c 和 d ：</p>
+<p>（直接看图吧） (2.13)</p>
+<p>（对模糊连接度，我们始终使用用于表示对应的模糊亲和度的符号的大写形式）</p>
+</figure>
+
+<p><em>搬运者注：函数 μ<sub>κ</sub>(c, d) 的含义应该是：c 到 d 的模糊连接度等于 c 到 d 的所有路径中隶属度最大的那个（这还挺容易理解的）。</em></p>
+<p>任一路径的连接强度是路径中最弱的链接的亲和度。两点之间的模糊连接度是所有路径强度中最大的。所以模糊连接度是一个全局关系。</p>
+<p>（the minimum of affinities has been considered to define path strength and the maximum of path strengths has been used to define fuzzy connectedness.）</p>
+<h1 id="算法实现"><a href="#算法实现" class="headerlink" title="算法实现"></a>算法实现</h1><p>论文中提供了两种方法</p>
+<h2 id="单种子点阈值模糊连接度算法"><a href="#单种子点阈值模糊连接度算法" class="headerlink" title="单种子点阈值模糊连接度算法"></a>单种子点阈值模糊连接度算法</h2><img src="/2023/06/04/%E8%BD%AC%E8%BD%BD%E5%92%8C%E7%BF%BB%E8%AF%91/%E6%A8%A1%E7%B3%8A%E8%BF%9E%E6%8E%A5%E5%BA%A6%20by%20%E9%98%BF%E5%85%B5-AI%E5%8C%BB%E7%96%97@CSDN/%E5%8D%95%E7%A7%8D%E5%AD%90%E7%82%B9%E9%98%88%E5%80%BC%E6%A8%A1%E7%B3%8A%E8%BF%9E%E6%8E%A5%E5%BA%A6%E7%AE%97%E6%B3%95.jpg" class="">
+
+<h2 id="没有阈值的方法"><a href="#没有阈值的方法" class="headerlink" title="没有阈值的方法"></a>没有阈值的方法</h2><img src="/2023/06/04/%E8%BD%AC%E8%BD%BD%E5%92%8C%E7%BF%BB%E8%AF%91/%E6%A8%A1%E7%B3%8A%E8%BF%9E%E6%8E%A5%E5%BA%A6%20by%20%E9%98%BF%E5%85%B5-AI%E5%8C%BB%E7%96%97@CSDN/%E6%B2%A1%E6%9C%89%E9%98%88%E5%80%BC%E7%9A%84%E6%96%B9%E6%B3%95.jpg" class="">
+
+<p><em>搬运者注：这两张图不是一模一样的吗……</em></p>
+<h1 id="示例演示"><a href="#示例演示" class="headerlink" title="示例演示"></a>示例演示</h1><p>用OpenCV实现模糊连接度分割（Fuzzy Connectedness）。<a class="link"   target="_blank" rel="noopener" href="https://github.com/webzhuce07/Medical-Image-Processing/tree/master/FuzzyConnectedness/FuzzyConnected" >完整代码<i class="fas fa-external-link-alt"></i></a></p>
+<h2 id="运行结果"><a href="#运行结果" class="headerlink" title="运行结果"></a>运行结果</h2><p>第一张是ITK官方运行结果</p>
+<img src="/2023/06/04/%E8%BD%AC%E8%BD%BD%E5%92%8C%E7%BF%BB%E8%AF%91/%E6%A8%A1%E7%B3%8A%E8%BF%9E%E6%8E%A5%E5%BA%A6%20by%20%E9%98%BF%E5%85%B5-AI%E5%8C%BB%E7%96%97@CSDN/ITK%E5%AE%98%E6%96%B9%E8%BF%90%E8%A1%8C%E7%BB%93%E6%9E%9C.jpg" class="">
+
+<p>第二张是自己用OpenCV实现的结果</p>
+<img src="/2023/06/04/%E8%BD%AC%E8%BD%BD%E5%92%8C%E7%BF%BB%E8%AF%91/%E6%A8%A1%E7%B3%8A%E8%BF%9E%E6%8E%A5%E5%BA%A6%20by%20%E9%98%BF%E5%85%B5-AI%E5%8C%BB%E7%96%97@CSDN/OpenCV%E5%AE%9E%E7%8E%B0%E7%BB%93%E6%9E%9C.jpg" class="">
+
+<p>代码实现正确。</p>
+<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><ul>
+<li>FuzzyConnectedness</li>
+<li><a class="link"   target="_blank" rel="noopener" href="http://www.doc88.com/p-4923148921311.html" >http://www.doc88.com/p-4923148921311.html<i class="fas fa-external-link-alt"></i></a></li>
+</ul>
+
+            </div>
+
+            
+
+            
+                <ul class="post-tags-box">
+                    
+                        <li class="tag-item">
+                            <a href="/tags/%E5%8C%BB%E5%AD%A6%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/">#医学图像处理</a>&nbsp;
+                        </li>
+                    
+                        <li class="tag-item">
+                            <a href="/tags/%E8%BD%AC%E8%BD%BD/">#转载</a>&nbsp;
+                        </li>
+                    
+                        <li class="tag-item">
+                            <a href="/tags/%E7%BF%BB%E8%AF%91/">#翻译</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            
+
+            
+                <div class="article-nav">
+                    
+                        <div class="article-prev">
+                            <a class="prev"
+                               rel="prev"
+                               href="/2023/06/18/%E6%97%A5%E8%AE%B0/2023%E5%B9%B46%E6%9C%8818%E6%97%A5/"
+                            >
+                            <span class="left arrow-icon flex-center">
+                              <i class="fas fa-chevron-left"></i>
+                            </span>
+                                <span class="title flex-center">
+                                <span class="post-nav-title-item">2023年6月18日</span>
+                                <span class="post-nav-item">上一篇</span>
+                            </span>
+                            </a>
+                        </div>
+                    
+                    
+                        <div class="article-next">
+                            <a class="next"
+                               rel="next"
+                               href="/2023/05/29/%E6%97%A5%E8%AE%B0/2023%E5%B9%B45%E6%9C%8829%E6%97%A5/"
+                            >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">2023年5月29日</span>
+                                <span class="post-nav-item">下一篇</span>
+                            </span>
+                                <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                            </a>
+                        </div>
+                    
+                </div>
+            
+
+            
+        </div>
+
+        
+            <div class="toc-content-container">
+                <div class="post-toc-wrap">
+    <div class="post-toc">
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%A6%82%E8%BF%B0"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="nav-number">2.</span> <span class="nav-text">基本概念</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A8%A1%E7%B3%8A%E9%9B%86%EF%BC%8C%E9%9A%B6%E5%B1%9E%E5%87%BD%E6%95%B0%E5%92%8C%E6%A8%A1%E7%B3%8A%E5%85%B3%E7%B3%BB"><span class="nav-number">2.1.</span> <span class="nav-text">模糊集，隶属函数和模糊关系</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A8%A1%E7%B3%8A%E9%82%BB%E8%BF%91%E5%85%B3%E7%B3%BB%EF%BC%8C%E6%A8%A1%E7%B3%8A%E6%95%B0%E5%AD%97%E7%A9%BA%E9%97%B4"><span class="nav-number">2.2.</span> <span class="nav-text">模糊邻近关系，模糊数字空间</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9C%BA%E6%99%AF%EF%BC%8C%E9%9A%B6%E5%B1%9E%E5%BA%A6%E5%9C%BA%EF%BC%8C%E4%BA%8C%E5%80%BC%E5%9C%BA"><span class="nav-number">2.3.</span> <span class="nav-text">场景，隶属度场，二值场</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%B2%E5%92%8C%E5%BA%A6"><span class="nav-number">2.4.</span> <span class="nav-text">亲和度</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B7%AF%E5%BE%84%EF%BC%8C%E6%A8%A1%E7%B3%8A%E8%BF%9E%E6%8E%A5%E5%BA%A6"><span class="nav-number">2.5.</span> <span class="nav-text">路径，模糊连接度</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%AE%97%E6%B3%95%E5%AE%9E%E7%8E%B0"><span class="nav-number">3.</span> <span class="nav-text">算法实现</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8D%95%E7%A7%8D%E5%AD%90%E7%82%B9%E9%98%88%E5%80%BC%E6%A8%A1%E7%B3%8A%E8%BF%9E%E6%8E%A5%E5%BA%A6%E7%AE%97%E6%B3%95"><span class="nav-number">3.1.</span> <span class="nav-text">单种子点阈值模糊连接度算法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B2%A1%E6%9C%89%E9%98%88%E5%80%BC%E7%9A%84%E6%96%B9%E6%B3%95"><span class="nav-number">3.2.</span> <span class="nav-text">没有阈值的方法</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%A4%BA%E4%BE%8B%E6%BC%94%E7%A4%BA"><span class="nav-number">4.</span> <span class="nav-text">示例演示</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%90%E8%A1%8C%E7%BB%93%E6%9E%9C"><span class="nav-number">4.1.</span> <span class="nav-text">运行结果</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="nav-number">5.</span> <span class="nav-text">参考资料</span></a></li></ol>
+    </div>
+</div>
+
+            </div>
+        
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            
+<footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+                <span>2023</span> -
+            
+            2023
+            
+                &nbsp;<i class="fas fa-heart icon-animate"></i>
+                &nbsp;<a href="/">Saya</a>
+            
+        </div>
+        
+        <div class="theme-info info-item">
+            由 <a target="_blank" href="https://hexo.io">Hexo</a> 驱动&nbsp;|&nbsp;主题&nbsp;<a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v3.6.1</a>
+        </div>
+        
+        
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item flex-center toggle-show-toc">
+                <i class="fas fa-list"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="fas fa-arrow-up"></i>
+            </li>
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    <div class="zoom-in-image-mask">
+    <img class="zoom-in-image">
+</div>
+
+
+    
+
+</main>
+
+
+
+<script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/js/utils.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/js/main.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/js/header-shrink.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/js/back2top.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/js/dark-light-toggle.js"></script>
+
+
+
+
+
+
+
+
+
+<div class="post-scripts">
+    
+        <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/js/post-helper.js"></script>
+        
+            <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/js/libs/anime.min.js"></script>
+        
+        
+            <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/js/toc.js"></script>
+        
+    
+</div>
+
+
+
+</body>
+</html>
