@@ -192,7 +192,7 @@
     
         <span class="article-update-date article-meta-item">
         <i class="fas fa-file-pen"></i>&nbsp;
-        <span class="pc">2023-09-28 17:08:11</span>
+        <span class="pc">2023-09-29 18:24:22</span>
     </span>
     
     
@@ -255,20 +255,23 @@
 <h2 id="编译-QT"><a href="#编译-QT" class="headerlink" title="编译 QT"></a>编译 QT</h2><p>下载 QT 源码 <a class="link"   target="_blank" rel="noopener" href="https://download.qt.io/official_releases/qt/6.5/6.5.2/single/" >QT 6.5.2 single<i class="fas fa-external-link-alt"></i></a></p>
 <p>准备目录 <code>D:\sdk\qt\6.5.2</code></p>
 <p>将源码解压缩至上述目录，并重命名为 <code>src</code> ，此时有目录 <code>D:\sdk\qt\6.5.2\src</code> ，该目录下应该有 <code>cmake</code> 、 <code>coin</code> 、 <code>qt*</code> 和 <code>README.md</code> 等一系列文件夹和文件</p>
+<p>新建目录 <code>D:\sdk\qt\6.5.2\build</code> ， configure 产生的文件将被存放在这里，把 build 和 src 分开的好处是后面可以方便地重新配置、重新 build</p>
 <p>新建目录 <code>D:\sdk\qt\6.5.2\install</code> ， build 产生的二进制文件将被安装在这里</p>
-<p>在目录 <code>D:\sdk\qt</code> 下新建文件 <code>qt6vars.cmd</code> ，文件的内容为：</p>
+<p>在目录 <code>D:\sdk\qt\6.5.2</code> 下新建文件 <code>qt6vars.cmd</code> ，文件的内容为：</p>
 <figure class="highlight bat"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">REM Set up Microsoft Visual Studio 2019, where &lt;arch&gt; is amd64, x86, etc.</span></span><br><span class="line"><span class="keyword">CALL</span> &quot;D:\Program Files (x86)\Microsoft Visual Studio\<span class="number">2019</span>\Community\VC\Auxiliary\Build\vcvarsall.bat&quot; amd64</span><br><span class="line"><span class="built_in">SET</span> _ROOT=D:\sdk\qt\<span class="number">6</span>.<span class="number">5</span>.<span class="number">2</span>\src</span><br><span class="line"><span class="built_in">SET</span> <span class="built_in">PATH</span>=<span class="variable">%_ROOT%</span>;<span class="variable">%PATH%</span></span><br><span class="line"><span class="built_in">SET</span> _ROOT=</span><br></pre></td></tr></table></figure>
 
 <p>注意 Visual Studio 2019 的安装目录，如果你把 Visual Studio 安装在了其他驱动器，或者你使用了专业版的 Visual Studio ，请修改 <code>CALL</code> 命令后的路径；如果你使用 32 位的操作系统，请将 <code>amd64</code> 改为 <code>x86</code></p>
-<p>然后在目录 <code>D:\sdk\qt</code> 下新建快捷方式 <code>qt6vars</code> ，快捷方式指向 <code>%SystemRoot%\system32\cmd.exe</code> ，运行参数为 <code>/E:ON /V:ON /k D:\sdk\qt\6.5.2\qt6vars.cmd</code></p>
-<p>双击运行快捷方式 <code>qt6vars</code> ，在终端中进入目录 <code>D:\sdk\qt\6.5.2\src</code></p>
-<p>运行命令 <code>configure.bat -DOPENSSL_ROOT_DIR=D:/Qt/Tools/OpenSSLv3/Win_x64 -DOPENSSL_USE_STATIC_LIBS=ON -skip qtopcua -prefix D:\sdk\qt\6.5.2\install</code></p>
-<p>上述命令指定了 openssl 的安装目录，以静态链接的方式启用了 openssl ，指定了安装二进制文件的目录，并且移除了 qtopcua 这个模块</p>
-<p>qtopcua 疑似是用于工控环境的模块，我用不到，并且它需要 openssl 1.1 ，我在编译时总是会报什么“ X509_EXTENSION 不能作为一个类型”的错（可能是我以前安装的 openssl 版本不兼容），所以我就干脆把它移除了</p>
+<p>然后在目录 <code>D:\sdk\qt\6.5.2</code> 下新建快捷方式 <code>qt6vars</code> ，快捷方式指向 <code>%SystemRoot%\system32\cmd.exe</code> ，运行参数为 <code>/E:ON /V:ON /k D:\sdk\qt\6.5.2\qt6vars.cmd</code> ，起始位置为 <code>D:\sdk\qt\6.5.2\build</code></p>
+<p>双击运行快捷方式 <code>qt6vars</code> ，此时应该已经位于目录 <code>D:\sdk\qt\6.5.2\build</code> 中</p>
+<p>运行命令 <code>../src/configure.bat -DOPENSSL_ROOT_DIR=D:/Qt/Tools/OpenSSLv3/Win_x64 -DOPENSSL_USE_STATIC_LIBS=ON -skip qtopcua -prefix D:\sdk\qt\6.5.2\install</code></p>
+<p>上述命令指定了 openssl 的安装目录（通过 QT Online Installer 安装），以静态链接的方式启用了 openssl ，指定了安装二进制文件的目录，并且移除了 qtopcua 这个模块</p>
+<p>关于 qtopcua ：疑似是用于工控环境的模块，我用不到，并且它需要 openssl 1.1 ，戴上它编译时总是会报什么“ X509_EXTENSION 不能作为一个类型”的错（可能是我以前安装的 openssl 版本不兼容），所以我就干脆把它移除了</p>
 <p>如果运行正常，应该会显示：</p>
-<figure class="highlight bat"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">-- Configuring done</span><br><span class="line">-- Generating done</span><br><span class="line">-- Build files have been written to: D:/sdk/qt/<span class="number">6</span>.<span class="number">5</span>.<span class="number">2</span>/src</span><br></pre></td></tr></table></figure>
+<figure class="highlight bat"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">-- Configuring done</span><br><span class="line">-- Generating done</span><br><span class="line">-- Build files have been written to: D:/sdk/qt/<span class="number">6</span>.<span class="number">5</span>.<span class="number">2</span>/build</span><br></pre></td></tr></table></figure>
 
-<p>然后依次运行 <code>cmake --build . --parallel</code> 和 <code>cmake --install .</code> ，我的笔记本有 6 核 2.2GHz 和 16GB 内存，编译耗时大约 1 小时</p>
+<p>然后依次运行 <code>cmake --build . --parallel</code> 和 <code>cmake --install .</code></p>
+<p>我的笔记本有 6 核 2.2GHz 和 16GB 内存，编译耗时大约 1 小时</p>
+<p>我的台式机有 10 核 4.88 GHz 和 32GB 内存，编译耗时大约 20 多分钟</p>
 <h2 id="安装-Qt-Visual-Studio-Tools-扩展"><a href="#安装-Qt-Visual-Studio-Tools-扩展" class="headerlink" title="安装 Qt Visual Studio Tools 扩展"></a>安装 Qt Visual Studio Tools 扩展</h2><p>扩展可以从<a class="link"   target="_blank" rel="noopener" href="https://marketplace.visualstudio.com/items?itemName=TheQtCompany.QtVisualStudioTools2019" >此处<i class="fas fa-external-link-alt"></i></a>下载</p>
 <p>如果安装失败的话可以查看 log ，如果 log 提示“此扩展不能安装在任何当前安装的产品上”，可以尝试更新 Visual Studio （扩展有版本要求）</p>
 <p>第一次使用扩展的话，需要注册 QT 版本，你可以在安装好扩展后随便打开一个解决方案，然后在“扩展 -&gt; QT VS Tools -&gt; QT Version”中注册 QT 版本，注册时的路径选择上文中的安装路径中的 qmake.exe 文件的路径即可（如果你是完全按照我的步骤来的话，这个路径应该是 <code>D:\sdk\qt\6.5.2\install\bin\qmake.exe</code> ）</p>
@@ -278,9 +281,22 @@
 <p>准备文件夹 <code>D:\sdk\vtk-9.3.0.rc1-build</code> 和 <code>D:\sdk\vtk-9.3.0.rc1-install</code></p>
 <p>运行 cmake-gui ，设置 Where is the source code 为 <code>D:\sdk\VTK-9.3.0.rc1</code> ，设置 Where to build the binaries 为 <code>D:\sdk\vtk-9.3.0.rc1-build</code> ，然后点击 Configure</p>
 <p>等第一次 Configure 完成后，设置 <code>CMAKE_INSTALL_PREFIX</code> 为 <code>D:\sdk\vtk-9.3.0.rc1-install</code></p>
-<p>将所有 QT 相关的选项都设置为 <code>WANT</code></p>
-<p>再次点击 Configure ，然后 Generate ，再 Open Project</p>
-<p>此时应该会打开 Visual Studio ，项目加载完成后生成解决方案，开始编译（ 6 核 2.2GHz 16GB 需要大约 30 分钟），编译完成后再单独生成一下 INSTALL 项目</p>
+<p>将 6 个 QT 相关的选项都设置为 <code>WANT</code> ，具体是：</p>
+<ul>
+<li><code>VTK_GROUP_ENABLE_Qt</code></li>
+<li><code>VTK_MODULE_ENABLE_VTK_GUISupportQt</code></li>
+<li><code>VTK_MODULE_ENABLE_VTK_GUISupportQtQuick</code></li>
+<li><code>VTK_MODULE_ENABLE_VTK_GUISupportQtSQL</code></li>
+<li><code>VTK_MODULE_ENABLE_VTK_RenderingQt</code></li>
+<li><code>VTK_MODULE_ENABLE_VTK_ViewsQt</code></li>
+</ul>
+<p>点击 Configure ，此时可能会提示找不到 Qt6</p>
+<p>设置 VTK_QT_VERSION 为 <code>6</code></p>
+<p>设置 Qt6_DIR 为 <code>D:\sdk\qt\6.5.2\install\lib\cmake\Qt6</code></p>
+<p>再次点击 Configure ，此时应该不会再报错了，然后 Generate ，再 Open Project</p>
+<p>此时应该会打开 Visual Studio ，项目加载完成后生成解决方案，开始编译，编译完成后再单独生成一下 INSTALL 项目</p>
+<p>6 核 2.2GHz 16GB 需要大约 30 分钟</p>
+<p>10 核 4.88GHz 32GB 需要大约 22 分钟</p>
 <h2 id="在-QT-项目中使用-VTK"><a href="#在-QT-项目中使用-VTK" class="headerlink" title="在 QT 项目中使用 VTK"></a>在 QT 项目中使用 VTK</h2><p>就和其他第三方库一样，设置头文件目录和库目录即可</p>
 <p>唯一需要注意的是调试时的环境变量，最好手动重新设置一下 PATH ：<code>PATH=D:/sdk/vtk-9.3.0.rc1-install/bin;D:/sdk/qt/6.5.2/install/bin;%PATH%</code> （这里的路径请参考实际情况）</p>
 <p>这个可以在项目的“配置属性 -&gt; 调试 -&gt; 环境”里更改</p>
