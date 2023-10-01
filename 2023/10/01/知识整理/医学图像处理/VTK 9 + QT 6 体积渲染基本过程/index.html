@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Hexo Theme Keep">
+    <meta name="description" content="blog">
+    <meta name="author" content="Saya">
+    
+    <title>
+        
+            VTK 9 + QT 6 体积渲染基本过程 |
+        
+        ToL
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <link rel="shortcut icon" href="/images/favicon_32x32.ico">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/font/css/fontawesome.min.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/font/css/regular.min.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/font/css/solid.min.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/font/css/brands.min.css">
+    <script id="hexo-configurations">
+    let KEEP = window.KEEP || {}
+    KEEP.hexo_config = {"hostname":"blog.saya.pw","root":"/","language":"zh-CN"}
+    KEEP.theme_config = {"toc":{"enable":true,"number":true,"expand_all":false,"init_open":true},"style":{"primary_color":"#0066cc","logo":"/images/logo.png","favicon":"/images/favicon_32x32.ico","avatar":"/images/avatar.jpg","font_size":null,"font_family":null,"hover":{"shadow":true,"scale":true},"first_screen":{"enable":true,"header_transparent":true,"background_img":"/images/fs/魔女の家.webp","description":" ","font_color":null,"hitokoto":false},"scroll":{"progress_bar":false,"percent":false}},"local_search":{"enable":false,"preload":false},"code_copy":{},"code_block":{"tools":{"enable":false,"style":"default"},"highlight_theme":"default"},"side_tools":{},"pjax":{"enable":false},"lazyload":{"enable":false},"comment":{"enable":false,"use":"valine","valine":{"appid":null,"appkey":null,"server_urls":null,"placeholder":null},"gitalk":{"github_id":null,"github_admins":null,"repository":null,"client_id":null,"client_secret":null,"proxy":null},"twikoo":{"env_id":null,"region":null,"version":"1.6.8"},"waline":{"server_url":null,"reaction":false,"version":2}},"post":{"author_label":{"enable":false,"auto":true,"custom_label_list":["Trainee","Engineer","Architect"]},"word_count":{"enable":false,"wordcount":false,"min2read":false},"img_align":"left","copyright_info":false},"version":"3.6.1"}
+    KEEP.language_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 个月前","year":"%s 年前"}
+    KEEP.language_code_block = {"copy":"复制代码","copied":"已复制","fold":"折叠代码块","folded":"已折叠"}
+    KEEP.language_copy_copyright = {"copy":"复制版权信息","copied":"已复制","title":"原文标题","author":"原文作者","link":"原文链接"}
+  </script>
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            
+<header class="header-wrapper">
+
+    <div class="header-content">
+        <div class="left">
+            
+                <a class="logo-image" href="/">
+                    <img src="/images/logo.png">
+                </a>
+            
+            <a class="logo-title" href="/">
+               ToL
+            </a>
+        </div>
+
+        <div class="right">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/"
+                            >
+                                首页
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >
+                                归档
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/tags"
+                            >
+                                标签
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/categories"
+                            >
+                                分类
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/about"
+                            >
+                                关于
+                            </a>
+                        </li>
+                    
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/">首页</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives">归档</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/tags">标签</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/categories">分类</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/about">关于</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="post-page-container">
+        <div class="article-content-container">
+
+            <div class="article-title">
+                <span class="title-hover-animation">VTK 9 + QT 6 体积渲染基本过程</span>
+            </div>
+
+            
+                <div class="article-header">
+                    <div class="avatar">
+                        <img src="/images/avatar.jpg">
+                    </div>
+                    <div class="info">
+                        <div class="author">
+                            <span class="name">Saya</span>
+                            
+                        </div>
+                        <div class="meta-info">
+                            
+<div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        
+            <i class="fa-regular fa-calendar-plus"></i>&nbsp;
+        
+        <span class="pc">2023-10-01 21:03:55</span>
+        <span class="mobile">2023-10-01 21:03</span>
+    </span>
+    
+        <span class="article-update-date article-meta-item">
+        <i class="fas fa-file-pen"></i>&nbsp;
+        <span class="pc">2023-10-01 21:03:55</span>
+    </span>
+    
+    
+        <span class="article-categories article-meta-item">
+            <i class="fas fa-folder"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/categories/%E7%9F%A5%E8%AF%86%E6%95%B4%E7%90%86/">知识整理</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        &gt; <a href="/categories/%E7%9F%A5%E8%AF%86%E6%95%B4%E7%90%86/%E5%8C%BB%E5%AD%A6%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/">医学图像处理</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fas fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/VTK/">VTK</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/QT/">QT</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/C/">C++</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/VTK-9/">VTK 9</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/QT-6/">QT 6</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/%E4%BD%93%E7%A7%AF%E5%9B%BE%E5%83%8F%E6%B8%B2%E6%9F%93/">体积图像渲染</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+    
+    
+</div>
+
+                        </div>
+                    </div>
+                </div>
+            
+
+            <div class="article-content keep-markdown-body">
+                
+
+                <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>这篇文章描述了使用 QT 和 VTK 渲染一幅体积图像的基本过程</p>
+<p>最近在入门 QT 和 VTK ，想趁着国庆开发一个用来比较两个体积图像的程序原型，于此记录一下在入门过程中学习到的知识</p>
+<ul>
+<li>VTK 版本： 9.3.0.rc1</li>
+<li>QT 版本： 6.5.2&#x2F;6.5.3</li>
+<li>QT Designer 版本：随 QT 自带</li>
+</ul>
+<h1 id="界面"><a href="#界面" class="headerlink" title="界面"></a>界面</h1><p>首先需要在 QT Designer 中画出一个普通的 OpenGL Widget （在左边 Widget Box 的 Display Widgets 里），然后在右侧的 Object Inspector 中右击新建的 OpenGL Widget ，选择 Promote to … （我这里因为之前已经 Promote 过了，所以还有一个 Promote to 的菜单）</p>
+<img src="/2023/10/01/%E7%9F%A5%E8%AF%86%E6%95%B4%E7%90%86/%E5%8C%BB%E5%AD%A6%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/VTK%209%20+%20QT%206%20%E4%BD%93%E7%A7%AF%E6%B8%B2%E6%9F%93%E5%9F%BA%E6%9C%AC%E8%BF%87%E7%A8%8B/promote_1.png" class="">
+
+<p>在 Promoted class name 中输入 <code>QVTKOpenGLNativeWidget</code> ，QT Designer 会自动填充 Header file 为 <code>qvtkopenglnativewidget.h</code> ，然后勾上 Global include</p>
+<p>鼠标悬浮在 Global include 上可以看到相关说明，因为我们引入 <code>qvtkopenglnativewidget.h</code> 不会对 QT 和 Python 产生副作用，所以可以勾上</p>
+<img src="/2023/10/01/%E7%9F%A5%E8%AF%86%E6%95%B4%E7%90%86/%E5%8C%BB%E5%AD%A6%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/VTK%209%20+%20QT%206%20%E4%BD%93%E7%A7%AF%E6%B8%B2%E6%9F%93%E5%9F%BA%E6%9C%AC%E8%BF%87%E7%A8%8B/promote_2.png" class="">
+
+<h1 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h1><p>假设刚才在 QT Designer 中画出的控件名称就叫 <code>qVtkOpenGLNativeWidget</code></p>
+<p>这个控件虽然是 VTK 提供的，但是不能直接用于渲染，中间需要隔一层 <code>vtkGenericOpenGLRenderWindow</code></p>
+<img src="/2023/10/01/%E7%9F%A5%E8%AF%86%E6%95%B4%E7%90%86/%E5%8C%BB%E5%AD%A6%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/VTK%209%20+%20QT%206%20%E4%BD%93%E7%A7%AF%E6%B8%B2%E6%9F%93%E5%9F%BA%E6%9C%AC%E8%BF%87%E7%A8%8B/graph_qt_vtk_1.png" class="">
+
+<p>QVTKOpenGLNativeWidget 的头文件中有如下说明：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Please note that QVTKOpenGLNativeWidget only works with vtkGenericOpenGLRenderWindow.</span><br><span class="line">This is necessary since QOpenGLWidget wants to take over the window management as</span><br><span class="line">well as the OpenGL context creation. Getting that to work reliably with</span><br><span class="line">vtkXRenderWindow or vtkWin32RenderWindow (and other platform specific</span><br><span class="line">vtkRenderWindow subclasses) was tricky and fraught with issues.</span><br></pre></td></tr></table></figure>
+
+<p>大致意思应该是如果直接使用 QVTKOpenGLNativeWidget 进行渲染的话，会和各种不同平台的渲染模块耦合，不利于跨平台</p>
+<p>接下来是主要的代码和说明</p>
+<h2 id="变量-x2F-成员声明"><a href="#变量-x2F-成员声明" class="headerlink" title="变量&#x2F;成员声明"></a>变量&#x2F;成员声明</h2><p><code>MainWindow.h</code> ：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;ui_MainWindow.h&quot;</span></span></span><br><span class="line"><span class="comment">// 此处省略引入 vtk 头文件的部分</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">MainWindow</span> : <span class="keyword">public</span> QMainWindow</span><br><span class="line">&#123;</span><br><span class="line">    Q_OBJECT</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">explicit</span> <span class="title">MainWindow</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> slots:</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 触发渲染逻辑的按钮点击事件，通过 QT 的 uic 自动和按钮的 signal 连接</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">on_btn_clicked</span><span class="params">(<span class="type">bool</span> checked)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * QT Designer 生成的 ui 类，我们只使用 ui 类中的 qVtkOpenGLNativeWidget 成员，</span></span><br><span class="line"><span class="comment">     * qVtkOpenGLNativeWidget 的类型就是 QVTKOpenGLNativeWidget ，因此这里不赘述 ui 类的具体结构</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    Ui::MainWindow ui;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 背景色</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    std::array&lt;<span class="type">unsigned</span> <span class="type">char</span>, 4&gt; bkg&#123; &#123;<span class="number">51</span>, <span class="number">77</span>, <span class="number">102</span>, <span class="number">255</span>&#125; &#125;;</span><br><span class="line">    vtkNew&lt;vtkNamedColors&gt; colors;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * DICOM 读取器，如果需要读取其他体积图像格式的数据的话，换成其他类型的读取器应该也可以</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    vtkNew&lt;vtkDICOMImageReader&gt; dicomReader;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * QT 和 VTK 对接的关键对象</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    vtkNew&lt;vtkGenericOpenGLRenderWindow&gt; renderWindow;</span><br><span class="line"></span><br><span class="line">    vtkNew&lt;vtkRenderer&gt; renderer;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 下面是一系列存储体积图像渲染参数的对象</span></span><br><span class="line">    <span class="comment">// 我这里只是图方便，这些对象应该不用全部作为类成员存储</span></span><br><span class="line">    vtkNew&lt;vtkFixedPointVolumeRayCastMapper&gt; volumeMapper; <span class="comment">// vtk 中的 mapper 的含义是数据和图元之间的映射</span></span><br><span class="line">    vtkNew&lt;vtkColorTransferFunction&gt; volumeColor;</span><br><span class="line">    vtkNew&lt;vtkPiecewiseFunction&gt; volumeScalarOpacity;</span><br><span class="line">    vtkNew&lt;vtkPiecewiseFunction&gt; volumeGradientOpacity;</span><br><span class="line">    vtkNew&lt;vtkVolumeProperty&gt; volumeProperty;</span><br><span class="line">    vtkNew&lt;vtkVolume&gt; volume;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h2 id="初始化-amp-执行"><a href="#初始化-amp-执行" class="headerlink" title="初始化 &amp; 执行"></a>初始化 &amp; 执行</h2><p><code>MainWindow.cpp</code> ：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;MainWindow.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;vtkCamera.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 构造函数</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">MainWindow::<span class="built_in">MainWindow</span>()</span><br><span class="line">&#123;</span><br><span class="line">    ui.<span class="built_in">setupUi</span>(<span class="keyword">this</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 背景色</span></span><br><span class="line">    colors-&gt;<span class="built_in">SetColor</span>(<span class="string">&quot;BkgColor&quot;</span>, bkg.<span class="built_in">data</span>());</span><br><span class="line">    renderer-&gt;<span class="built_in">SetBackground</span>(colors-&gt;<span class="built_in">GetColor3d</span>(<span class="string">&quot;BkgColor&quot;</span>).<span class="built_in">GetData</span>());</span><br><span class="line"></span><br><span class="line">    <span class="comment">// QVTKOpenGLNativeWidget &lt;-&gt; vtkGenericOpenGLRenderWindow</span></span><br><span class="line">    ui.qVtkOpenGLNativeWidget-&gt;<span class="built_in">setRenderWindow</span>(renderWindow);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 在 generic opengl render window 中添加 renderer</span></span><br><span class="line">    renderWindow-&gt;<span class="built_in">AddRenderer</span>(renderer);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 读取体积图像并渲染</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">MainWindow::on_btn_clicked</span><span class="params">(<span class="type">bool</span> checked)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">// 读取 DICOM 文件</span></span><br><span class="line">    dicomReader-&gt;<span class="built_in">SetDirectoryName</span>(<span class="string">&quot;E:\\dl\\5mm early phase&quot;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 创建映射</span></span><br><span class="line">    volumeMapper-&gt;<span class="built_in">SetInputConnection</span>(dicomReader-&gt;<span class="built_in">GetOutputPort</span>());</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 渲染参数：颜色曲线</span></span><br><span class="line">    volumeColor-&gt;<span class="built_in">AddRGBPoint</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line">    volumeColor-&gt;<span class="built_in">AddRGBPoint</span>(<span class="number">180</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line">    volumeColor-&gt;<span class="built_in">AddRGBPoint</span>(<span class="number">380</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line">    volumeColor-&gt;<span class="built_in">AddRGBPoint</span>(<span class="number">381</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 渲染参数：透明度曲线</span></span><br><span class="line">    volumeScalarOpacity-&gt;<span class="built_in">AddPoint</span>(<span class="number">0</span>, <span class="number">0.15</span>);</span><br><span class="line">    volumeScalarOpacity-&gt;<span class="built_in">AddPoint</span>(<span class="number">180</span>, <span class="number">0.85</span>);</span><br><span class="line">    volumeScalarOpacity-&gt;<span class="built_in">AddPoint</span>(<span class="number">380</span>, <span class="number">0.85</span>);</span><br><span class="line">    volumeScalarOpacity-&gt;<span class="built_in">AddPoint</span>(<span class="number">381</span>, <span class="number">0.15</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 渲染参数：渐变曲线（用来凸显等值面）</span></span><br><span class="line">    volumeGradientOpacity-&gt;<span class="built_in">AddPoint</span>(<span class="number">0</span>, <span class="number">0.0</span>);</span><br><span class="line">    volumeGradientOpacity-&gt;<span class="built_in">AddPoint</span>(<span class="number">90</span>, <span class="number">0.5</span>);</span><br><span class="line">    volumeGradientOpacity-&gt;<span class="built_in">AddPoint</span>(<span class="number">100</span>, <span class="number">1.0</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 其他渲染参数</span></span><br><span class="line">    volumeProperty-&gt;<span class="built_in">SetColor</span>(volumeColor);</span><br><span class="line">    volumeProperty-&gt;<span class="built_in">SetScalarOpacity</span>(volumeScalarOpacity);</span><br><span class="line">    volumeProperty-&gt;<span class="built_in">SetGradientOpacity</span>(volumeGradientOpacity);</span><br><span class="line">    volumeProperty-&gt;<span class="built_in">SetInterpolationTypeToLinear</span>();</span><br><span class="line">    volumeProperty-&gt;<span class="built_in">ShadeOn</span>();</span><br><span class="line">    volumeProperty-&gt;<span class="built_in">SetAmbient</span>(<span class="number">0.4</span>);</span><br><span class="line">    volumeProperty-&gt;<span class="built_in">SetDiffuse</span>(<span class="number">0.6</span>);</span><br><span class="line">    volumeProperty-&gt;<span class="built_in">SetSpecular</span>(<span class="number">0.2</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 配置 volume 对象</span></span><br><span class="line">    volume-&gt;<span class="built_in">SetMapper</span>(volumeMapper);</span><br><span class="line">    volume-&gt;<span class="built_in">SetProperty</span>(volumeProperty);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 将 volume 对象添加进 renderer</span></span><br><span class="line">    renderer-&gt;<span class="built_in">AddViewProp</span>(volume);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 设置 renderer 的相机位置和朝向</span></span><br><span class="line">    vtkCamera* camera = renderer-&gt;<span class="built_in">GetActiveCamera</span>();</span><br><span class="line">    <span class="type">double</span>* c = volume-&gt;<span class="built_in">GetCenter</span>();</span><br><span class="line">    camera-&gt;<span class="built_in">SetViewUp</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="number">-1</span>);</span><br><span class="line">    camera-&gt;<span class="built_in">SetPosition</span>(c[<span class="number">0</span>], c[<span class="number">1</span>] - <span class="number">800</span>, c[<span class="number">2</span>]);</span><br><span class="line">    camera-&gt;<span class="built_in">SetFocalPoint</span>(c[<span class="number">0</span>], c[<span class="number">1</span>], c[<span class="number">2</span>]);</span><br><span class="line">    camera-&gt;<span class="built_in">Azimuth</span>(<span class="number">30.0</span>);</span><br><span class="line">    camera-&gt;<span class="built_in">Elevation</span>(<span class="number">30.0</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 渲染</span></span><br><span class="line">    renderWindow-&gt;<span class="built_in">Render</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="关于-main-函数"><a href="#关于-main-函数" class="headerlink" title="关于 main 函数"></a>关于 main 函数</h2><p><code>main.cpp</code> ：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;QApplication&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;MainWindow.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 初始化 OpenGL 体积渲染模块</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;vtkAutoInit.h&gt;</span></span></span><br><span class="line"><span class="built_in">VTK_MODULE_INIT</span>(vtkRenderingVolumeOpenGL2)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">char</span> *argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">// QVTKOpenGLNativeWidget 类的头文件要求在初始化 QApplication 之前执行下面这行代码，不过我试了一下把这行代码去掉好像也没有任何影响？</span></span><br><span class="line">    QSurfaceFormat::<span class="built_in">setDefaultFormat</span>(QVTKOpenGLNativeWidget::<span class="built_in">defaultFormat</span>());</span><br><span class="line"></span><br><span class="line">    <span class="function">QApplication <span class="title">app</span><span class="params">(argc, argv)</span></span>;</span><br><span class="line">    MainWindow window;</span><br><span class="line">    window.<span class="built_in">show</span>();</span><br><span class="line">    <span class="keyword">return</span> app.<span class="built_in">exec</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>如果缺少 <code>#include &lt;vtkAutoInit.h&gt;</code> 和 <code>VTK_MODULE_INIT(vtkRenderingVolumeOpenGL2)</code> 两段代码的话会报下面这样的错误：</p>
+<img src="/2023/10/01/%E7%9F%A5%E8%AF%86%E6%95%B4%E7%90%86/%E5%8C%BB%E5%AD%A6%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/VTK%209%20+%20QT%206%20%E4%BD%93%E7%A7%AF%E6%B8%B2%E6%9F%93%E5%9F%BA%E6%9C%AC%E8%BF%87%E7%A8%8B/error_1.png" class="">
+
+<p>vtkAutoInit 和 VTK_MODULE_INIT 这两行代码是我从网上找到的，暂时不清楚如果使用其他模块的话 <code>VTK_MODULE_INIT(...)</code> 这行应该怎么写</p>
+<h1 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h1><p>最终的执行结果展示，可以忽略界面中的 Tab 、状态栏和右边第二个 OpenGL Widget ，这些东西和文章里描述的体积图像的渲染过程没什么关系</p>
+<img src="/2023/10/01/%E7%9F%A5%E8%AF%86%E6%95%B4%E7%90%86/%E5%8C%BB%E5%AD%A6%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/VTK%209%20+%20QT%206%20%E4%BD%93%E7%A7%AF%E6%B8%B2%E6%9F%93%E5%9F%BA%E6%9C%AC%E8%BF%87%E7%A8%8B/result.png" class="">
+
+            </div>
+
+            
+
+            
+                <ul class="post-tags-box">
+                    
+                        <li class="tag-item">
+                            <a href="/tags/VTK/">#VTK</a>&nbsp;
+                        </li>
+                    
+                        <li class="tag-item">
+                            <a href="/tags/QT/">#QT</a>&nbsp;
+                        </li>
+                    
+                        <li class="tag-item">
+                            <a href="/tags/C/">#C++</a>&nbsp;
+                        </li>
+                    
+                        <li class="tag-item">
+                            <a href="/tags/VTK-9/">#VTK 9</a>&nbsp;
+                        </li>
+                    
+                        <li class="tag-item">
+                            <a href="/tags/QT-6/">#QT 6</a>&nbsp;
+                        </li>
+                    
+                        <li class="tag-item">
+                            <a href="/tags/%E4%BD%93%E7%A7%AF%E5%9B%BE%E5%83%8F%E6%B8%B2%E6%9F%93/">#体积图像渲染</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            
+
+            
+                <div class="article-nav">
+                    
+                    
+                        <div class="article-next">
+                            <a class="next"
+                               rel="next"
+                               href="/2023/09/28/%E8%AE%B0%E5%BD%95/%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/VTK%209.3.0%20+%20QT%206.5.2%20+%20Visual%20Studio%202019%20%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA%E8%BF%87%E7%A8%8B/"
+                            >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">VTK 9.3.0 + QT 6.5.2 + Visual Studio 2019 开发环境搭建过程</span>
+                                <span class="post-nav-item">下一篇</span>
+                            </span>
+                                <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                            </a>
+                        </div>
+                    
+                </div>
+            
+
+            
+        </div>
+
+        
+            <div class="toc-content-container">
+                <div class="post-toc-wrap">
+    <div class="post-toc">
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%95%8C%E9%9D%A2"><span class="nav-number">2.</span> <span class="nav-text">界面</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81"><span class="nav-number">3.</span> <span class="nav-text">代码</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%98%E9%87%8F-x2F-%E6%88%90%E5%91%98%E5%A3%B0%E6%98%8E"><span class="nav-number">3.1.</span> <span class="nav-text">变量&#x2F;成员声明</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%9D%E5%A7%8B%E5%8C%96-amp-%E6%89%A7%E8%A1%8C"><span class="nav-number">3.2.</span> <span class="nav-text">初始化 &amp; 执行</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B3%E4%BA%8E-main-%E5%87%BD%E6%95%B0"><span class="nav-number">3.3.</span> <span class="nav-text">关于 main 函数</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%BB%93%E6%9E%9C"><span class="nav-number">4.</span> <span class="nav-text">结果</span></a></li></ol>
+    </div>
+</div>
+
+            </div>
+        
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            
+<footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+                <span>2023</span> -
+            
+            2023
+            
+                &nbsp;<i class="fas fa-heart icon-animate"></i>
+                &nbsp;<a href="/">Saya</a>
+            
+        </div>
+        
+        <div class="theme-info info-item">
+            由 <a target="_blank" href="https://hexo.io">Hexo</a> 驱动&nbsp;|&nbsp;主题&nbsp;<a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v3.6.1</a>
+        </div>
+        
+        
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item flex-center toggle-show-toc">
+                <i class="fas fa-list"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="fas fa-arrow-up"></i>
+            </li>
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    <div class="zoom-in-image-mask">
+    <img class="zoom-in-image">
+</div>
+
+
+    
+
+</main>
+
+
+
+<script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/js/utils.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/js/main.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/js/header-shrink.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/js/back2top.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/js/dark-light-toggle.js"></script>
+
+
+
+
+
+
+
+
+
+<div class="post-scripts">
+    
+        <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/js/post-helper.js"></script>
+        
+            <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/js/libs/anime.min.js"></script>
+        
+        
+            <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/js/toc.js"></script>
+        
+    
+</div>
+
+
+
+</body>
+</html>
