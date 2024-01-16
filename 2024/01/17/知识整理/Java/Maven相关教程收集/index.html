@@ -9,7 +9,7 @@
     
     <title>
         
-            X4工厂集群计算器 |
+            Maven相关教程收集 |
         
         ToL
     </title>
@@ -166,7 +166,7 @@
         <div class="article-content-container">
 
             <div class="article-title">
-                <span class="title-hover-animation">X4工厂集群计算器</span>
+                <span class="title-hover-animation">Maven相关教程收集</span>
             </div>
 
             
@@ -186,13 +186,13 @@
         
             <i class="fa-regular fa-calendar-plus"></i>&nbsp;
         
-        <span class="pc">2023-04-03 23:18:31</span>
-        <span class="mobile">2023-04-03 23:18</span>
+        <span class="pc">2024-01-17 01:16:09</span>
+        <span class="mobile">2024-01-17 01:16</span>
     </span>
     
         <span class="article-update-date article-meta-item">
         <i class="fas fa-file-pen"></i>&nbsp;
-        <span class="pc">2023-05-20 20:20:39</span>
+        <span class="pc">2024-01-17 01:16:09</span>
     </span>
     
     
@@ -201,12 +201,31 @@
             <ul>
                 
                     <li>
-                        <a href="/categories/%E7%9B%AE%E6%A0%87/">目标</a>&nbsp;
+                        <a href="/categories/%E7%9F%A5%E8%AF%86%E6%95%B4%E7%90%86/">知识整理</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        &gt; <a href="/categories/%E7%9F%A5%E8%AF%86%E6%95%B4%E7%90%86/Java/">Java</a>&nbsp;
                     </li>
                 
             </ul>
         </span>
     
+    
+        <span class="article-tags article-meta-item">
+            <i class="fas fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/Java/">Java</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/Maven/">Maven</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
     
 
     
@@ -223,66 +242,38 @@
             <div class="article-content keep-markdown-body">
                 
 
-                <p>更新：</p>
-<p>除了没有那种像Factorio或者戴森球计划的计算器里的流程图，其他的基本功能都完成地差不多了。要问还有什么不满意的地方，可能得等网友或者我自己开了新档实际使用了才能知道。或许可以先告一段落了，流程图其实不是特别重要，而且现在也没什么实现思路。</p>
-<p>—— 2023年5月20日</p>
-<hr>
-<p>更新：</p>
-<p>现在已经完成了数据的读取、处理和转换，包括语言文件。但是我后面又希望能在一张类似游戏里的地图上摆放和规划工厂，于是就又开始研究如何绘制地图。一开始打算用openlayers，毕竟工作中刚刚学习过这个，结果突然意识到游戏里的地图本质上是三维的。我找了一圈，没有找到合适的三维地图库，所以现在正在尝试用THREE.JS实现我想要的东西。先做好地图，然后能在地图上摆放工厂，然后再计算所有工厂之间的供需关系，用d3之类的东西画成一张图表。</p>
-<p>虽然工具没有按时完成，但是X4和新的DLC我也在玩，目前在用draw.io这个工具去规划工厂。每一个数字都要手动去更新、输入，不是很方便，但勉强能用。</p>
-<p>完成地图和规划功能以后，我还希望再做一个读取玩家存档的功能，然后玩家就能用我的工具对已有的存档进行分析。</p>
-<p>—— 2023年4月25日</p>
-<hr>
-<p>目标分解：</p>
-<ul>
-<li><del>读取cat文件，寻找并获取指定xml文件</del></li>
-<li><del>解析xml文件</del></li>
-<li><del>收集游戏内各个空间站模块的ID、名称、劳动力加成数据和产品信息</del></li>
-<li><del>收集游戏内各个产品的原材料信息（什么产品，每小时生产多少，需要什么原材料，每小时消耗多少）</del></li>
-<li><del>将上述数据导出为自定义的json格式</del></li>
-<li>输入指定的生产目标（若干种产品，每种产品每小时能够累积多少），自动计算工厂数量、每个工厂需要多少（生产和仓储）模块<ul>
-<li>每个工厂的能量电池都自给自足</li>
-<li>每个工厂除了能量电池外，只生产自己的主要产品</li>
-<li>计算器可以有劳动力参与和没有劳动力参与两种情况，每种产品可以单独设置是否有劳动力参与，劳动力参与只考虑满人口的情况</li>
-<li>可以设置每种产品一个空间站的产量上限，这么做应该会导致最终空间站数量变多，即一个产品有多个空间站共同生产</li>
-<li>结果以HTML形式输出（可以按产物折叠，有checkbox可以用来打勾，标记哪些已经建好了，最好能把状态持久化地保存，这样就算误关闭了HTML文件也能保存进度）</li>
-</ul>
-</li>
-</ul>
-<p>目标完成时间：2023年4月12日之前</p>
+                <h1 id="Maven打jar包的三种方式"><a href="#Maven打jar包的三种方式" class="headerlink" title="Maven打jar包的三种方式"></a>Maven打jar包的三种方式</h1><p>文中最后一种方式可以把依赖打进输出的 jar 包里</p>
+<p><a class="link"   target="_blank" rel="noopener" href="https://www.cnblogs.com/jinjiyese153/p/9374015.html" >Maven打jar包的三种方式<i class="fas fa-external-link-alt"></i></a></p>
 
             </div>
 
             
 
             
+                <ul class="post-tags-box">
+                    
+                        <li class="tag-item">
+                            <a href="/tags/Java/">#Java</a>&nbsp;
+                        </li>
+                    
+                        <li class="tag-item">
+                            <a href="/tags/Maven/">#Maven</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            
 
             
                 <div class="article-nav">
-                    
-                        <div class="article-prev">
-                            <a class="prev"
-                               rel="prev"
-                               href="/2023/04/25/%E7%9F%A5%E8%AF%86%E6%95%B4%E7%90%86/BS%E5%89%8D%E7%AB%AF/%E4%BD%BF%E7%94%A8Service%20Worker%E4%B8%BAimg%E6%A0%87%E7%AD%BE%E7%9A%84%E8%AF%B7%E6%B1%82%E6%B7%BB%E5%8A%A0%E8%AF%B7%E6%B1%82%E5%A4%B4/"
-                            >
-                            <span class="left arrow-icon flex-center">
-                              <i class="fas fa-chevron-left"></i>
-                            </span>
-                                <span class="title flex-center">
-                                <span class="post-nav-title-item">使用Service Worker为img标签的请求添加请求头</span>
-                                <span class="post-nav-item">上一篇</span>
-                            </span>
-                            </a>
-                        </div>
                     
                     
                         <div class="article-next">
                             <a class="next"
                                rel="next"
-                               href="/2023/04/03/%E7%9B%AE%E6%A0%87/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/"
+                               href="/2024/01/17/%E7%9F%A5%E8%AF%86%E6%95%B4%E7%90%86/Java/VSCode%20java%E5%BC%80%E5%8F%91%E7%9B%B8%E5%85%B3%E6%95%99%E7%A8%8B%E6%94%B6%E9%9B%86/"
                             >
                             <span class="title flex-center">
-                                <span class="post-nav-title-item">游戏开发</span>
+                                <span class="post-nav-title-item">VSCode java开发相关教程收集</span>
                                 <span class="post-nav-item">下一篇</span>
                             </span>
                                 <span class="right arrow-icon flex-center">
@@ -301,7 +292,7 @@
             <div class="toc-content-container">
                 <div class="post-toc-wrap">
     <div class="post-toc">
-        
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Maven%E6%89%93jar%E5%8C%85%E7%9A%84%E4%B8%89%E7%A7%8D%E6%96%B9%E5%BC%8F"><span class="nav-number">1.</span> <span class="nav-text">Maven打jar包的三种方式</span></a></li></ol>
     </div>
 </div>
 
