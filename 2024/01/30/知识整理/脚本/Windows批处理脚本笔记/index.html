@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Hexo Theme Keep">
+    <meta name="description" content="blog">
+    <meta name="author" content="Saya">
+    
+    <title>
+        
+            Windows批处理脚本笔记 |
+        
+        ToL
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <link rel="shortcut icon" href="/images/favicon_32x32.ico">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/font/css/fontawesome.min.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/font/css/regular.min.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/font/css/solid.min.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/font/css/brands.min.css">
+    <script id="hexo-configurations">
+    let KEEP = window.KEEP || {}
+    KEEP.hexo_config = {"hostname":"blog.saya.pw","root":"/","language":"zh-CN"}
+    KEEP.theme_config = {"toc":{"enable":true,"number":true,"expand_all":false,"init_open":true},"style":{"primary_color":"#0066cc","logo":"/images/logo.png","favicon":"/images/favicon_32x32.ico","avatar":"/images/avatar.jpg","font_size":null,"font_family":null,"hover":{"shadow":true,"scale":true},"first_screen":{"enable":true,"header_transparent":true,"background_img":"/images/fs/魔女の家.webp","description":" ","font_color":null,"hitokoto":false},"scroll":{"progress_bar":false,"percent":false}},"local_search":{"enable":false,"preload":false},"code_copy":{},"code_block":{"tools":{"enable":false,"style":"default"},"highlight_theme":"default"},"side_tools":{},"pjax":{"enable":false},"lazyload":{"enable":false},"comment":{"enable":false,"use":"valine","valine":{"appid":null,"appkey":null,"server_urls":null,"placeholder":null},"gitalk":{"github_id":null,"github_admins":null,"repository":null,"client_id":null,"client_secret":null,"proxy":null},"twikoo":{"env_id":null,"region":null,"version":"1.6.8"},"waline":{"server_url":null,"reaction":false,"version":2}},"post":{"author_label":{"enable":false,"auto":true,"custom_label_list":["Trainee","Engineer","Architect"]},"word_count":{"enable":false,"wordcount":false,"min2read":false},"img_align":"left","copyright_info":false},"version":"3.6.1"}
+    KEEP.language_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 个月前","year":"%s 年前"}
+    KEEP.language_code_block = {"copy":"复制代码","copied":"已复制","fold":"折叠代码块","folded":"已折叠"}
+    KEEP.language_copy_copyright = {"copy":"复制版权信息","copied":"已复制","title":"原文标题","author":"原文作者","link":"原文链接"}
+  </script>
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            
+<header class="header-wrapper">
+
+    <div class="header-content">
+        <div class="left">
+            
+                <a class="logo-image" href="/">
+                    <img src="/images/logo.png">
+                </a>
+            
+            <a class="logo-title" href="/">
+               ToL
+            </a>
+        </div>
+
+        <div class="right">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/"
+                            >
+                                首页
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >
+                                归档
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/tags"
+                            >
+                                标签
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/categories"
+                            >
+                                分类
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/about"
+                            >
+                                关于
+                            </a>
+                        </li>
+                    
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/">首页</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives">归档</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/tags">标签</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/categories">分类</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/about">关于</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="post-page-container">
+        <div class="article-content-container">
+
+            <div class="article-title">
+                <span class="title-hover-animation">Windows批处理脚本笔记</span>
+            </div>
+
+            
+                <div class="article-header">
+                    <div class="avatar">
+                        <img src="/images/avatar.jpg">
+                    </div>
+                    <div class="info">
+                        <div class="author">
+                            <span class="name">Saya</span>
+                            
+                        </div>
+                        <div class="meta-info">
+                            
+<div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        
+            <i class="fa-regular fa-calendar-plus"></i>&nbsp;
+        
+        <span class="pc">2024-01-30 01:57:39</span>
+        <span class="mobile">2024-01-30 01:57</span>
+    </span>
+    
+        <span class="article-update-date article-meta-item">
+        <i class="fas fa-file-pen"></i>&nbsp;
+        <span class="pc">2024-01-30 01:57:39</span>
+    </span>
+    
+    
+        <span class="article-categories article-meta-item">
+            <i class="fas fa-folder"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/categories/%E7%9F%A5%E8%AF%86%E6%95%B4%E7%90%86/">知识整理</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        &gt; <a href="/categories/%E7%9F%A5%E8%AF%86%E6%95%B4%E7%90%86/%E8%84%9A%E6%9C%AC/">脚本</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fas fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/windows/">windows</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/%E5%91%BD%E4%BB%A4%E6%8F%90%E7%A4%BA%E7%AC%A6/">命令提示符</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/cmd/">cmd</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/bat/">bat</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+    
+    
+</div>
+
+                        </div>
+                    </div>
+                </div>
+            
+
+            <div class="article-content keep-markdown-body">
+                
+
+                <h1 id="执行命令并获取命令的输出"><a href="#执行命令并获取命令的输出" class="headerlink" title="执行命令并获取命令的输出"></a>执行命令并获取命令的输出</h1><p><code>for /f</code> 可以用来分析命令的输出</p>
+<p><code>&quot;tokens=1,2,3,4&quot;</code> 表示取每一行的第 1 、 2 、 3 、 4 个标记，默认情况下按空格和制表符分隔</p>
+<p><code>%%a</code> 是存储第一个标记的变量，额外标记将按顺序分配给其他变量，例如第二个标记将被分配给变量 <code>%%b</code> ，第三个 <code>%%c</code></p>
+<figure class="highlight bat"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> /f &quot;tokens=<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>&quot; <span class="variable">%%a</span> <span class="keyword">in</span> (&#x27;<span class="built_in">dir</span>&#x27;) <span class="keyword">do</span> (</span><br><span class="line">  <span class="built_in">set</span> _DATE_=<span class="variable">%%a</span></span><br><span class="line">  <span class="built_in">set</span> _TIME_=<span class="variable">%%b</span></span><br><span class="line">  <span class="built_in">set</span> _SIZE_=<span class="variable">%%c</span></span><br><span class="line">  <span class="built_in">set</span> _NAME_=<span class="variable">%%d</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<h2 id="跳过前若干行"><a href="#跳过前若干行" class="headerlink" title="跳过前若干行"></a>跳过前若干行</h2><p><code>for /f</code> 命令后可以接 <code>parsingkeywords</code> ，上面的 <code>&quot;tokens=1,2,3,4&quot;</code> 就是。除了 <code>tokens</code> 还可以设置 <code>delims</code> 和 <code>skip</code></p>
+<figure class="highlight bat"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">@REM 跳过 certutil 输出的第一行，直接获取文件的 hash 值并跳出循环（ hash 值位于输出的第二行）</span></span><br><span class="line"><span class="keyword">for</span> /f &quot;skip=<span class="number">1</span> tokens=<span class="number">1</span>&quot; <span class="variable">%%a</span> <span class="keyword">in</span> (&#x27;certutil -hashfile backup.zip SHA256&#x27;) <span class="keyword">do</span> (</span><br><span class="line">  <span class="built_in">set</span> _HASH=<span class="variable">%%a</span></span><br><span class="line">  <span class="keyword">goto</span> LBL_EXIT_LOOP_HASH</span><br><span class="line">)</span><br><span class="line">:LBL_EXIT_LOOP_HASH</span><br></pre></td></tr></table></figure>
+
+<h1 id="在代码块中修改并访问同一个变量"><a href="#在代码块中修改并访问同一个变量" class="headerlink" title="在代码块中修改并访问同一个变量"></a>在代码块中修改并访问同一个变量</h1><p>默认情况下，代码块中的变量在执行前就已经全部解析完毕，在代码块中修改再读取变量是没有效果的。这种默认设置对循环不是很友好，通过打开 delayed expansion 可以缓解这个问题：</p>
+<figure class="highlight bat"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">setlocal</span> EnableDelayedExpansion</span><br><span class="line"><span class="built_in">set</span> _COUNT=<span class="number">0</span></span><br><span class="line"><span class="keyword">for</span> /f <span class="variable">%%a</span> <span class="keyword">in</span> (&#x27;<span class="built_in">dir</span>&#x27;) <span class="keyword">do</span> (</span><br><span class="line"><span class="comment">  @REM 使用 delayed expansion 时，在代码块内部访问修改后的变量需要使用 ! 包围变量名称，而不是 %</span></span><br><span class="line">  <span class="built_in">set</span> /a _COUNT=<span class="variable">!_COUNT!</span>+<span class="number">1</span></span><br><span class="line">)</span><br><span class="line"><span class="built_in">echo</span> <span class="variable">%_COUNT%</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="使用-set-x2F-a-进行数学计算"><a href="#使用-set-x2F-a-进行数学计算" class="headerlink" title="使用 set &#x2F;a 进行数学计算"></a>使用 set &#x2F;a 进行数学计算</h1><figure class="highlight bat"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">set</span> _A=<span class="number">1</span></span><br><span class="line"><span class="built_in">set</span> _B=<span class="number">2</span></span><br><span class="line"><span class="built_in">set</span> /a _C=<span class="variable">%_A%</span>+<span class="variable">%_B%</span>+<span class="number">3</span></span><br><span class="line"><span class="built_in">echo</span> <span class="variable">%_C%</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="获取子字符串"><a href="#获取子字符串" class="headerlink" title="获取子字符串"></a>获取子字符串</h1><p>语法： <code>%&lt;变量名&gt;:~&lt;开始索引（从0开始）&gt;,&lt;截取长度&gt;%</code></p>
+<figure class="highlight bat"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">set</span> _STR=Hello World</span><br><span class="line"><span class="built_in">set</span> _WORL=<span class="variable">%_STR:~6,4%</span></span><br><span class="line"><span class="built_in">echo</span> <span class="variable">%_WORL%</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="字符串替换"><a href="#字符串替换" class="headerlink" title="字符串替换"></a>字符串替换</h1><p>语法： <code>%&lt;变量名&gt;:&lt;搜索子串&gt;=&lt;替换字符串&gt;</code> ，将 <code>&lt;变量名&gt;</code> 所指字符串中的所有 <code>&lt;搜索子串&gt;</code> 替换成 <code>&lt;替换字符串&gt;</code></p>
+<figure class="highlight bat"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">set</span> _STR=Hello World</span><br><span class="line"><span class="built_in">set</span> _STR2=<span class="variable">%_STR:o=0%</span></span><br><span class="line"><span class="built_in">echo</span> <span class="variable">%_STR2%</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="start-和-call-的区别"><a href="#start-和-call-的区别" class="headerlink" title="start 和 call 的区别"></a>start 和 call 的区别</h1><p>start: 开启一个新的上下文<br>call: 在同一个上下文中运行</p>
+<h1 id="设置窗口标题"><a href="#设置窗口标题" class="headerlink" title="设置窗口标题"></a>设置窗口标题</h1><figure class="highlight bat"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">title</span> This is new <span class="built_in">title</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="逻辑-AND-和-OR"><a href="#逻辑-AND-和-OR" class="headerlink" title="逻辑 AND 和 OR"></a>逻辑 AND 和 OR</h1><p>需要注意的是，当两个 if 嵌套在一起时，两个 if 的条件表达式似乎会同时求值，不会因为外层 if 的条件表达式求值结果为 false 而忽略对内层 if 的条件表达式的求值（需要验证）</p>
+<figure class="highlight bat"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">@REM AND</span></span><br><span class="line"><span class="keyword">if</span> <span class="variable">%age%</span> <span class="keyword">geq</span> <span class="number">2</span> (</span><br><span class="line">    <span class="keyword">if</span> <span class="variable">%age%</span> <span class="keyword">leq</span> <span class="number">12</span> (</span><br><span class="line">        <span class="built_in">set</span> class=child</span><br><span class="line">    )</span><br><span class="line">)</span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">@REM OR</span></span><br><span class="line"><span class="built_in">set</span> res=F</span><br><span class="line"><span class="keyword">if</span> <span class="variable">%hour%</span> <span class="keyword">leq</span> <span class="number">6</span> <span class="built_in">set</span> res=T</span><br><span class="line"><span class="keyword">if</span> <span class="variable">%hour%</span> <span class="keyword">geq</span> <span class="number">22</span> <span class="built_in">set</span> res=T</span><br><span class="line"><span class="keyword">if</span> &quot;<span class="variable">%res%</span>&quot;==&quot;T&quot; (</span><br><span class="line">    <span class="built_in">set</span> state=asleep</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<h1 id="获取当前的工作目录"><a href="#获取当前的工作目录" class="headerlink" title="获取当前的工作目录"></a>获取当前的工作目录</h1><p>当前工作目录存储于变量 <code>%cd%</code> 中</p>
+<figure class="highlight bat"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="variable">%cd%</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="输出一个空行"><a href="#输出一个空行" class="headerlink" title="输出一个空行"></a>输出一个空行</h1><p>有多种方式可以输出一个空行，比较安全的方法是：</p>
+<figure class="highlight bat"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> line <span class="number">1</span></span><br><span class="line"><span class="built_in">echo</span>(</span><br><span class="line"><span class="built_in">echo</span> line <span class="number">2</span></span><br><span class="line"><span class="function">echo:</span></span><br><span class="line"><span class="function"><span class="title">echo</span> <span class="title">line</span> 3</span></span><br></pre></td></tr></table></figure>
+
+<p>个人比较喜欢 <code>echo:</code> 这种用法</p>
+<p>参考：<a class="link"   target="_blank" rel="noopener" href="https://stackoverflow.com/a/20691061/10043559" >Echo a blank (empty) line to the console from a Windows batch file [duplicate]<i class="fas fa-external-link-alt"></i></a></p>
+<h1 id="移除一个变量"><a href="#移除一个变量" class="headerlink" title="移除一个变量"></a>移除一个变量</h1><p>在等号后立即换行即可</p>
+<figure class="highlight bat"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">set</span> _VAR_TO_UNSET=</span><br></pre></td></tr></table></figure>
+
+<h1 id="数字比较"><a href="#数字比较" class="headerlink" title="数字比较"></a>数字比较</h1><p>比较运算符可以用于 <code>if</code> 语句的条件表达式</p>
+<ul>
+<li>EQU - 等于</li>
+<li>NEQ - 不等于</li>
+<li>LSS - 小于</li>
+<li>LEQ - 小于等于</li>
+<li>GTR - 大于</li>
+<li>GEQ - 大于等于</li>
+</ul>
+<figure class="highlight bat"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> <span class="number">2</span> <span class="keyword">gtr</span> <span class="number">1</span> (</span><br><span class="line">  <span class="built_in">echo</span> &quot;<span class="number">2</span> &gt; <span class="number">1</span>&quot;</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<h1 id="测试一个变量是否为空"><a href="#测试一个变量是否为空" class="headerlink" title="测试一个变量是否为空"></a>测试一个变量是否为空</h1><p>将变量用双引号包裹起来即可</p>
+<figure class="highlight bat"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">set</span> _EMPTY=</span><br><span class="line"><span class="keyword">if</span> &quot;<span class="variable">%__EMPTY%</span>&quot; <span class="keyword">equ</span> &quot;&quot; (</span><br><span class="line">  <span class="built_in">echo</span> empty</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<h1 id="将长命令拆成多行"><a href="#将长命令拆成多行" class="headerlink" title="将长命令拆成多行"></a>将长命令拆成多行</h1><p>在脚本中可以使用重复赋值的方式拼接字符串：</p>
+<figure class="highlight bat"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">set</span> _COMMAND=tasklist</span><br><span class="line"><span class="built_in">set</span> _COMMAND=<span class="variable">%_COMMAND%</span> /fi</span><br><span class="line"><span class="built_in">set</span> _COMMAND=<span class="variable">%_COMMAND%</span> &quot;imagename eq msedge.exe&quot;</span><br><span class="line"><span class="built_in">set</span> _COMMAND=<span class="variable">%_COMMAND%</span> /nh</span><br><span class="line"><span class="variable">%_COMMAND%</span></span><br></pre></td></tr></table></figure>
+
+<p>在命令提示符中可以使用 <code>^</code> 符号对 EOL 进行转义：</p>
+<figure class="highlight bat"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">tasklist ^</span><br><span class="line">/fi ^</span><br><span class="line">&quot;imagename eq msedge.exe&quot; ^</span><br><span class="line">/nh</span><br></pre></td></tr></table></figure>
+
+<h1 id="计算文件的-hash"><a href="#计算文件的-hash" class="headerlink" title="计算文件的 hash"></a>计算文件的 hash</h1><p>使用 windows 自带的 certutil 可以计算文件的 hash 值：</p>
+<figure class="highlight bat"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">certutil -hashfile file_to_hash.zip MD5</span><br><span class="line">certutil -hashfile file_to_hash.zip SHA256</span><br></pre></td></tr></table></figure>
+
+<p>certutil 支持 MD2 、 MD4 、 MD5 、 SHA1 （默认）、 SHA256 、 SHA384 和 SHA512 算法</p>
+<h1 id="获取当前的日期和时间"><a href="#获取当前的日期和时间" class="headerlink" title="获取当前的日期和时间"></a>获取当前的日期和时间</h1><p>当前的日期存储于变量 <code>%date%</code> 中，当前的时间存储于变量 <code>%time%</code> 中，可以使用截取子字符串和变量拼接的方法对日期和时间进行格式化</p>
+<figure class="highlight bat"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="variable">%date%</span></span><br><span class="line"><span class="built_in">echo</span> <span class="variable">%time%</span></span><br></pre></td></tr></table></figure>
+
+            </div>
+
+            
+
+            
+                <ul class="post-tags-box">
+                    
+                        <li class="tag-item">
+                            <a href="/tags/windows/">#windows</a>&nbsp;
+                        </li>
+                    
+                        <li class="tag-item">
+                            <a href="/tags/%E5%91%BD%E4%BB%A4%E6%8F%90%E7%A4%BA%E7%AC%A6/">#命令提示符</a>&nbsp;
+                        </li>
+                    
+                        <li class="tag-item">
+                            <a href="/tags/cmd/">#cmd</a>&nbsp;
+                        </li>
+                    
+                        <li class="tag-item">
+                            <a href="/tags/bat/">#bat</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            
+
+            
+                <div class="article-nav">
+                    
+                    
+                        <div class="article-next">
+                            <a class="next"
+                               rel="next"
+                               href="/2024/01/19/%E6%97%A5%E8%AE%B0/2024%E5%B9%B41%E6%9C%8819%E6%97%A5/"
+                            >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">2024年1月19日</span>
+                                <span class="post-nav-item">下一篇</span>
+                            </span>
+                                <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                            </a>
+                        </div>
+                    
+                </div>
+            
+
+            
+        </div>
+
+        
+            <div class="toc-content-container">
+                <div class="post-toc-wrap">
+    <div class="post-toc">
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%89%A7%E8%A1%8C%E5%91%BD%E4%BB%A4%E5%B9%B6%E8%8E%B7%E5%8F%96%E5%91%BD%E4%BB%A4%E7%9A%84%E8%BE%93%E5%87%BA"><span class="nav-number">1.</span> <span class="nav-text">执行命令并获取命令的输出</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B7%B3%E8%BF%87%E5%89%8D%E8%8B%A5%E5%B9%B2%E8%A1%8C"><span class="nav-number">1.1.</span> <span class="nav-text">跳过前若干行</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9C%A8%E4%BB%A3%E7%A0%81%E5%9D%97%E4%B8%AD%E4%BF%AE%E6%94%B9%E5%B9%B6%E8%AE%BF%E9%97%AE%E5%90%8C%E4%B8%80%E4%B8%AA%E5%8F%98%E9%87%8F"><span class="nav-number">2.</span> <span class="nav-text">在代码块中修改并访问同一个变量</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-set-x2F-a-%E8%BF%9B%E8%A1%8C%E6%95%B0%E5%AD%A6%E8%AE%A1%E7%AE%97"><span class="nav-number">3.</span> <span class="nav-text">使用 set &#x2F;a 进行数学计算</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%8E%B7%E5%8F%96%E5%AD%90%E5%AD%97%E7%AC%A6%E4%B8%B2"><span class="nav-number">4.</span> <span class="nav-text">获取子字符串</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%9B%BF%E6%8D%A2"><span class="nav-number">5.</span> <span class="nav-text">字符串替换</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#start-%E5%92%8C-call-%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number">6.</span> <span class="nav-text">start 和 call 的区别</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AE%BE%E7%BD%AE%E7%AA%97%E5%8F%A3%E6%A0%87%E9%A2%98"><span class="nav-number">7.</span> <span class="nav-text">设置窗口标题</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%80%BB%E8%BE%91-AND-%E5%92%8C-OR"><span class="nav-number">8.</span> <span class="nav-text">逻辑 AND 和 OR</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%8E%B7%E5%8F%96%E5%BD%93%E5%89%8D%E7%9A%84%E5%B7%A5%E4%BD%9C%E7%9B%AE%E5%BD%95"><span class="nav-number">9.</span> <span class="nav-text">获取当前的工作目录</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%BE%93%E5%87%BA%E4%B8%80%E4%B8%AA%E7%A9%BA%E8%A1%8C"><span class="nav-number">10.</span> <span class="nav-text">输出一个空行</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%A7%BB%E9%99%A4%E4%B8%80%E4%B8%AA%E5%8F%98%E9%87%8F"><span class="nav-number">11.</span> <span class="nav-text">移除一个变量</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%95%B0%E5%AD%97%E6%AF%94%E8%BE%83"><span class="nav-number">12.</span> <span class="nav-text">数字比较</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%B5%8B%E8%AF%95%E4%B8%80%E4%B8%AA%E5%8F%98%E9%87%8F%E6%98%AF%E5%90%A6%E4%B8%BA%E7%A9%BA"><span class="nav-number">13.</span> <span class="nav-text">测试一个变量是否为空</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%B0%86%E9%95%BF%E5%91%BD%E4%BB%A4%E6%8B%86%E6%88%90%E5%A4%9A%E8%A1%8C"><span class="nav-number">14.</span> <span class="nav-text">将长命令拆成多行</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AE%A1%E7%AE%97%E6%96%87%E4%BB%B6%E7%9A%84-hash"><span class="nav-number">15.</span> <span class="nav-text">计算文件的 hash</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%8E%B7%E5%8F%96%E5%BD%93%E5%89%8D%E7%9A%84%E6%97%A5%E6%9C%9F%E5%92%8C%E6%97%B6%E9%97%B4"><span class="nav-number">16.</span> <span class="nav-text">获取当前的日期和时间</span></a></li></ol>
+    </div>
+</div>
+
+            </div>
+        
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            
+<footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+                <span>2023</span> -
+            
+            2024
+            
+                &nbsp;<i class="fas fa-heart icon-animate"></i>
+                &nbsp;<a href="/">Saya</a>
+            
+        </div>
+        
+        <div class="theme-info info-item">
+            由 <a target="_blank" href="https://hexo.io">Hexo</a> 驱动&nbsp;|&nbsp;主题&nbsp;<a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v3.6.1</a>
+        </div>
+        
+        
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item flex-center toggle-show-toc">
+                <i class="fas fa-list"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="fas fa-arrow-up"></i>
+            </li>
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    <div class="zoom-in-image-mask">
+    <img class="zoom-in-image">
+</div>
+
+
+    
+
+</main>
+
+
+
+<script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/js/utils.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/js/main.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/js/header-shrink.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/js/back2top.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/js/dark-light-toggle.js"></script>
+
+
+
+
+
+
+
+
+
+<div class="post-scripts">
+    
+        <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/js/post-helper.js"></script>
+        
+            <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/js/libs/anime.min.js"></script>
+        
+        
+            <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/js/toc.js"></script>
+        
+    
+</div>
+
+
+
+</body>
+</html>
