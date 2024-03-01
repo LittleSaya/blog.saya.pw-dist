@@ -9,7 +9,7 @@
     
     <title>
         
-            VTK 9.3.0 + QT 6.5.2 + Visual Studio 2019 开发环境搭建过程 |
+            Bash脚本笔记 |
         
         ToL
     </title>
@@ -166,7 +166,7 @@
         <div class="article-content-container">
 
             <div class="article-title">
-                <span class="title-hover-animation">VTK 9.3.0 + QT 6.5.2 + Visual Studio 2019 开发环境搭建过程</span>
+                <span class="title-hover-animation">Bash脚本笔记</span>
             </div>
 
             
@@ -186,13 +186,13 @@
         
             <i class="fa-regular fa-calendar-plus"></i>&nbsp;
         
-        <span class="pc">2023-09-28 17:08:11</span>
-        <span class="mobile">2023-09-28 17:08</span>
+        <span class="pc">2024-03-01 10:06:18</span>
+        <span class="mobile">2024-03-01 10:06</span>
     </span>
     
         <span class="article-update-date article-meta-item">
         <i class="fas fa-file-pen"></i>&nbsp;
-        <span class="pc">2023-09-29 18:24:22</span>
+        <span class="pc">2024-03-01 10:55:30</span>
     </span>
     
     
@@ -201,11 +201,11 @@
             <ul>
                 
                     <li>
-                        <a href="/categories/%E8%AE%B0%E5%BD%95/">记录</a>&nbsp;
+                        <a href="/categories/%E7%9F%A5%E8%AF%86%E6%95%B4%E7%90%86/">知识整理</a>&nbsp;
                     </li>
                 
                     <li>
-                        &gt; <a href="/categories/%E8%AE%B0%E5%BD%95/%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/">开发环境</a>&nbsp;
+                        &gt; <a href="/categories/%E7%9F%A5%E8%AF%86%E6%95%B4%E7%90%86/%E8%84%9A%E6%9C%AC/">脚本</a>&nbsp;
                     </li>
                 
             </ul>
@@ -217,19 +217,11 @@
             <ul>
                 
                     <li>
-                        <a href="/tags/VTK/">VTK</a>&nbsp;
+                        <a href="/tags/linux/">linux</a>&nbsp;
                     </li>
                 
                     <li>
-                        | <a href="/tags/QT/">QT</a>&nbsp;
-                    </li>
-                
-                    <li>
-                        | <a href="/tags/Visual-Studio/">Visual Studio</a>&nbsp;
-                    </li>
-                
-                    <li>
-                        | <a href="/tags/C/">C++</a>&nbsp;
+                        | <a href="/tags/bash/">bash</a>&nbsp;
                     </li>
                 
             </ul>
@@ -250,58 +242,15 @@
             <div class="article-content keep-markdown-body">
                 
 
-                <h1 id="VTK-9-3-0-QT-6-5-2-开发环境搭建过程"><a href="#VTK-9-3-0-QT-6-5-2-开发环境搭建过程" class="headerlink" title="VTK 9.3.0 + QT 6.5.2 开发环境搭建过程"></a>VTK 9.3.0 + QT 6.5.2 开发环境搭建过程</h1><h2 id="预先准备"><a href="#预先准备" class="headerlink" title="预先准备"></a>预先准备</h2><p>先安装好 cmake ， openssl ， ptyhon 3.x 和 Visual Studio 2019 ，确保命令 <code>python</code> 在环境变量 <code>PATH</code> 下</p>
-<p>openssl 可以使用 <a class="link"   target="_blank" rel="noopener" href="https://www.qt.io/download-open-source" >QT Online Installer<i class="fas fa-external-link-alt"></i></a> 安装</p>
-<h2 id="编译-QT"><a href="#编译-QT" class="headerlink" title="编译 QT"></a>编译 QT</h2><p>下载 QT 源码 <a class="link"   target="_blank" rel="noopener" href="https://download.qt.io/official_releases/qt/6.5/6.5.2/single/" >QT 6.5.2 single<i class="fas fa-external-link-alt"></i></a></p>
-<p>准备目录 <code>D:\sdk\qt\6.5.2</code></p>
-<p>将源码解压缩至上述目录，并重命名为 <code>src</code> ，此时有目录 <code>D:\sdk\qt\6.5.2\src</code> ，该目录下应该有 <code>cmake</code> 、 <code>coin</code> 、 <code>qt*</code> 和 <code>README.md</code> 等一系列文件夹和文件</p>
-<p>新建目录 <code>D:\sdk\qt\6.5.2\build</code> ， configure 产生的文件将被存放在这里，把 build 和 src 分开的好处是后面可以方便地重新配置、重新 build</p>
-<p>新建目录 <code>D:\sdk\qt\6.5.2\install</code> ， build 产生的二进制文件将被安装在这里</p>
-<p>在目录 <code>D:\sdk\qt\6.5.2</code> 下新建文件 <code>qt6vars.cmd</code> ，文件的内容为：</p>
-<figure class="highlight bat"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">REM Set up Microsoft Visual Studio 2019, where &lt;arch&gt; is amd64, x86, etc.</span></span><br><span class="line"><span class="keyword">CALL</span> &quot;D:\Program Files (x86)\Microsoft Visual Studio\<span class="number">2019</span>\Community\VC\Auxiliary\Build\vcvarsall.bat&quot; amd64</span><br><span class="line"><span class="built_in">SET</span> _ROOT=D:\sdk\qt\<span class="number">6</span>.<span class="number">5</span>.<span class="number">2</span>\src</span><br><span class="line"><span class="built_in">SET</span> <span class="built_in">PATH</span>=<span class="variable">%_ROOT%</span>;<span class="variable">%PATH%</span></span><br><span class="line"><span class="built_in">SET</span> _ROOT=</span><br></pre></td></tr></table></figure>
+                <h1 id="重定向"><a href="#重定向" class="headerlink" title="重定向"></a>重定向</h1><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 将文件内容作为标准输入</span></span><br><span class="line">the-command &lt; stdin.txt</span><br><span class="line"></span><br><span class="line"><span class="comment"># 将标准输出重定向至文件</span></span><br><span class="line">the-command &gt; stdout.txt</span><br><span class="line"></span><br><span class="line"><span class="comment"># 将错误输出重定向至文件</span></span><br><span class="line">the-command 2&gt; stderr.txt</span><br></pre></td></tr></table></figure>
 
-<p>注意 Visual Studio 2019 的安装目录，如果你把 Visual Studio 安装在了其他驱动器，或者你使用了专业版的 Visual Studio ，请修改 <code>CALL</code> 命令后的路径；如果你使用 32 位的操作系统，请将 <code>amd64</code> 改为 <code>x86</code></p>
-<p>然后在目录 <code>D:\sdk\qt\6.5.2</code> 下新建快捷方式 <code>qt6vars</code> ，快捷方式指向 <code>%SystemRoot%\system32\cmd.exe</code> ，运行参数为 <code>/E:ON /V:ON /k D:\sdk\qt\6.5.2\qt6vars.cmd</code> ，起始位置为 <code>D:\sdk\qt\6.5.2\build</code></p>
-<p>双击运行快捷方式 <code>qt6vars</code> ，此时应该已经位于目录 <code>D:\sdk\qt\6.5.2\build</code> 中</p>
-<p>运行命令 <code>../src/configure.bat -DOPENSSL_ROOT_DIR=D:/Qt/Tools/OpenSSLv3/Win_x64 -DOPENSSL_USE_STATIC_LIBS=ON -skip qtopcua -prefix D:\sdk\qt\6.5.2\install</code></p>
-<p>上述命令指定了 openssl 的安装目录（通过 QT Online Installer 安装），以静态链接的方式启用了 openssl ，指定了安装二进制文件的目录，并且移除了 qtopcua 这个模块</p>
-<p>关于 qtopcua ：疑似是用于工控环境的模块，我用不到，并且它需要 openssl 1.1 ，戴上它编译时总是会报什么“ X509_EXTENSION 不能作为一个类型”的错（可能是我以前安装的 openssl 版本不兼容），所以我就干脆把它移除了</p>
-<p>如果运行正常，应该会显示：</p>
-<figure class="highlight bat"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">-- Configuring done</span><br><span class="line">-- Generating done</span><br><span class="line">-- Build files have been written to: D:/sdk/qt/<span class="number">6</span>.<span class="number">5</span>.<span class="number">2</span>/build</span><br></pre></td></tr></table></figure>
+<h1 id="字符串匹配"><a href="#字符串匹配" class="headerlink" title="字符串匹配"></a>字符串匹配</h1><p><a class="link"   target="_blank" rel="noopener" href="https://ioflood.com/blog/bash-regex/" >来源<i class="fas fa-external-link-alt"></i></a></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 正则匹配</span></span><br><span class="line"><span class="keyword">if</span> [[ <span class="string">&#x27;Hello World&#x27;</span> =~ Hello ]]; <span class="keyword">then</span> <span class="built_in">echo</span> <span class="string">&quot;matched&quot;</span>; <span class="keyword">else</span> <span class="built_in">echo</span> <span class="string">&quot;not matched&quot;</span></span><br></pre></td></tr></table></figure>
 
-<p>然后依次运行 <code>cmake --build . --parallel</code> 和 <code>cmake --install .</code></p>
-<p>我的笔记本有 6 核 2.2GHz 和 16GB 内存，编译耗时大约 1 小时</p>
-<p>我的台式机有 10 核 4.88 GHz 和 32GB 内存，编译耗时大约 20 多分钟</p>
-<h2 id="安装-Qt-Visual-Studio-Tools-扩展"><a href="#安装-Qt-Visual-Studio-Tools-扩展" class="headerlink" title="安装 Qt Visual Studio Tools 扩展"></a>安装 Qt Visual Studio Tools 扩展</h2><p>扩展可以从<a class="link"   target="_blank" rel="noopener" href="https://marketplace.visualstudio.com/items?itemName=TheQtCompany.QtVisualStudioTools2019" >此处<i class="fas fa-external-link-alt"></i></a>下载</p>
-<p>如果安装失败的话可以查看 log ，如果 log 提示“此扩展不能安装在任何当前安装的产品上”，可以尝试更新 Visual Studio （扩展有版本要求）</p>
-<p>第一次使用扩展的话，需要注册 QT 版本，你可以在安装好扩展后随便打开一个解决方案，然后在“扩展 -&gt; QT VS Tools -&gt; QT Version”中注册 QT 版本，注册时的路径选择上文中的安装路径中的 qmake.exe 文件的路径即可（如果你是完全按照我的步骤来的话，这个路径应该是 <code>D:\sdk\qt\6.5.2\install\bin\qmake.exe</code> ）</p>
-<p>注册好 QT 版本后，就可以在新建项目时选择 QT 项目了</p>
-<h2 id="编译-VTK"><a href="#编译-VTK" class="headerlink" title="编译 VTK"></a>编译 VTK</h2><p><a class="link"   target="_blank" rel="noopener" href="https://vtk.org/download/" >下载 VTK 源码<i class="fas fa-external-link-alt"></i></a></p>
-<p>将源码解压至 <code>D:\sdk\VTK-9.3.0.rc1</code> （我下载的版本是 9.3.0.rc1 ）</p>
-<p>准备文件夹 <code>D:\sdk\vtk-9.3.0.rc1-build</code> 和 <code>D:\sdk\vtk-9.3.0.rc1-install</code></p>
-<p>运行 cmake-gui ，设置 Where is the source code 为 <code>D:\sdk\VTK-9.3.0.rc1</code> ，设置 Where to build the binaries 为 <code>D:\sdk\vtk-9.3.0.rc1-build</code> ，然后点击 Configure</p>
-<p>等第一次 Configure 完成后，设置 <code>CMAKE_INSTALL_PREFIX</code> 为 <code>D:\sdk\vtk-9.3.0.rc1-install</code></p>
-<p>将 6 个 QT 相关的选项都设置为 <code>WANT</code> ，具体是：</p>
-<ul>
-<li><code>VTK_GROUP_ENABLE_Qt</code></li>
-<li><code>VTK_MODULE_ENABLE_VTK_GUISupportQt</code></li>
-<li><code>VTK_MODULE_ENABLE_VTK_GUISupportQtQuick</code></li>
-<li><code>VTK_MODULE_ENABLE_VTK_GUISupportQtSQL</code></li>
-<li><code>VTK_MODULE_ENABLE_VTK_RenderingQt</code></li>
-<li><code>VTK_MODULE_ENABLE_VTK_ViewsQt</code></li>
-</ul>
-<p>点击 Configure ，此时可能会提示找不到 Qt6</p>
-<p>设置 VTK_QT_VERSION 为 <code>6</code></p>
-<p>设置 Qt6_DIR 为 <code>D:\sdk\qt\6.5.2\install\lib\cmake\Qt6</code></p>
-<p>再次点击 Configure ，此时应该不会再报错了，然后 Generate ，再 Open Project</p>
-<p>此时应该会打开 Visual Studio ，项目加载完成后生成解决方案，开始编译，编译完成后再单独生成一下 INSTALL 项目</p>
-<p>6 核 2.2GHz 16GB 需要大约 30 分钟</p>
-<p>10 核 4.88GHz 32GB 需要大约 22 分钟</p>
-<h2 id="在-QT-项目中使用-VTK"><a href="#在-QT-项目中使用-VTK" class="headerlink" title="在 QT 项目中使用 VTK"></a>在 QT 项目中使用 VTK</h2><p>就和其他第三方库一样，设置头文件目录和库目录即可</p>
-<p>唯一需要注意的是调试时的环境变量，最好手动重新设置一下 PATH ：<code>PATH=D:/sdk/vtk-9.3.0.rc1-install/bin;D:/sdk/qt/6.5.2/install/bin;%PATH%</code> （这里的路径请参考实际情况）</p>
-<p>这个可以在项目的“配置属性 -&gt; 调试 -&gt; 环境”里更改</p>
-<p>如果不改项目的环境变量的话，可以更改系统环境变量里的 PATH 或者把 VTK 的 dll 文件复制到生成的目录里，否则调试时会提示找不到 dll</p>
-<p>我做了一个简单的 Node.js 脚本来收集 dll 文件，运行这个脚本需要 Dependencies ，脚本可以在这里下载：<a class="link"   target="_blank" rel="noopener" href="https://github.com/LittleSaya/WinDeployDllHelper" >WinDeployDllHelper<i class="fas fa-external-link-alt"></i></a></p>
+<h1 id="遍历变量的每一行"><a href="#遍历变量的每一行" class="headerlink" title="遍历变量的每一行"></a>遍历变量的每一行</h1><p><a class="link"   target="_blank" rel="noopener" href="https://superuser.com/questions/284187/bash-iterating-over-lines-in-a-variable" >来源<i class="fas fa-external-link-alt"></i></a></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span> IFS= <span class="built_in">read</span> -r line || [[ -n <span class="variable">$line</span> ]]; <span class="keyword">do</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">&quot;... <span class="variable">$line</span> ...&quot;</span></span><br><span class="line"><span class="keyword">done</span> &lt; &lt;(<span class="built_in">printf</span> <span class="string">&#x27;%s&#x27;</span> <span class="string">&quot;<span class="variable">$list2</span>&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<h1 id="exec-命令的作用"><a href="#exec-命令的作用" class="headerlink" title="exec 命令的作用"></a>exec 命令的作用</h1><p>exec 用于执行一条命令，但是如果不带命令的话， exec 会将重定向应用于当前脚本。<a class="link"   target="_blank" rel="noopener" href="https://askubuntu.com/questions/525767/what-does-an-exec-command-do" >参考<i class="fas fa-external-link-alt"></i></a></p>
 
             </div>
 
@@ -311,19 +260,11 @@
                 <ul class="post-tags-box">
                     
                         <li class="tag-item">
-                            <a href="/tags/VTK/">#VTK</a>&nbsp;
+                            <a href="/tags/linux/">#linux</a>&nbsp;
                         </li>
                     
                         <li class="tag-item">
-                            <a href="/tags/QT/">#QT</a>&nbsp;
-                        </li>
-                    
-                        <li class="tag-item">
-                            <a href="/tags/Visual-Studio/">#Visual Studio</a>&nbsp;
-                        </li>
-                    
-                        <li class="tag-item">
-                            <a href="/tags/C/">#C++</a>&nbsp;
+                            <a href="/tags/bash/">#bash</a>&nbsp;
                         </li>
                     
                 </ul>
@@ -335,13 +276,13 @@
                         <div class="article-prev">
                             <a class="prev"
                                rel="prev"
-                               href="/2023/10/01/%E7%9F%A5%E8%AF%86%E6%95%B4%E7%90%86/%E5%8C%BB%E5%AD%A6%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/VTK%209%20+%20QT%206%20%E4%BD%93%E7%A7%AF%E6%B8%B2%E6%9F%93%E5%9F%BA%E6%9C%AC%E8%BF%87%E7%A8%8B/"
+                               href="/2024/03/01/%E7%9F%A5%E8%AF%86%E6%95%B4%E7%90%86/Linux/Crontab%E7%9A%84%E4%BD%BF%E7%94%A8%E6%96%B9%E5%BC%8F/"
                             >
                             <span class="left arrow-icon flex-center">
                               <i class="fas fa-chevron-left"></i>
                             </span>
                                 <span class="title flex-center">
-                                <span class="post-nav-title-item">VTK 9 + QT 6 体积渲染基本过程</span>
+                                <span class="post-nav-title-item">Crontab的使用方式</span>
                                 <span class="post-nav-item">上一篇</span>
                             </span>
                             </a>
@@ -351,10 +292,10 @@
                         <div class="article-next">
                             <a class="next"
                                rel="next"
-                               href="/2023/07/25/%E6%97%A5%E8%AE%B0/2023%E5%B9%B47%E6%9C%8825%E6%97%A5/"
+                               href="/2024/02/09/%E7%9F%A5%E8%AF%86%E6%95%B4%E7%90%86/%E8%84%9A%E6%9C%AC/Powershell%E8%84%9A%E6%9C%AC%E7%AC%94%E8%AE%B0/"
                             >
                             <span class="title flex-center">
-                                <span class="post-nav-title-item">2023年7月25日</span>
+                                <span class="post-nav-title-item">Powershell脚本笔记</span>
                                 <span class="post-nav-item">下一篇</span>
                             </span>
                                 <span class="right arrow-icon flex-center">
@@ -373,7 +314,7 @@
             <div class="toc-content-container">
                 <div class="post-toc-wrap">
     <div class="post-toc">
-        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#VTK-9-3-0-QT-6-5-2-%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA%E8%BF%87%E7%A8%8B"><span class="nav-number">1.</span> <span class="nav-text">VTK 9.3.0 + QT 6.5.2 开发环境搭建过程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A2%84%E5%85%88%E5%87%86%E5%A4%87"><span class="nav-number">1.1.</span> <span class="nav-text">预先准备</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BC%96%E8%AF%91-QT"><span class="nav-number">1.2.</span> <span class="nav-text">编译 QT</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85-Qt-Visual-Studio-Tools-%E6%89%A9%E5%B1%95"><span class="nav-number">1.3.</span> <span class="nav-text">安装 Qt Visual Studio Tools 扩展</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BC%96%E8%AF%91-VTK"><span class="nav-number">1.4.</span> <span class="nav-text">编译 VTK</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9C%A8-QT-%E9%A1%B9%E7%9B%AE%E4%B8%AD%E4%BD%BF%E7%94%A8-VTK"><span class="nav-number">1.5.</span> <span class="nav-text">在 QT 项目中使用 VTK</span></a></li></ol></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%87%8D%E5%AE%9A%E5%90%91"><span class="nav-number">1.</span> <span class="nav-text">重定向</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%8C%B9%E9%85%8D"><span class="nav-number">2.</span> <span class="nav-text">字符串匹配</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%81%8D%E5%8E%86%E5%8F%98%E9%87%8F%E7%9A%84%E6%AF%8F%E4%B8%80%E8%A1%8C"><span class="nav-number">3.</span> <span class="nav-text">遍历变量的每一行</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#exec-%E5%91%BD%E4%BB%A4%E7%9A%84%E4%BD%9C%E7%94%A8"><span class="nav-number">4.</span> <span class="nav-text">exec 命令的作用</span></a></li></ol>
     </div>
 </div>
 
