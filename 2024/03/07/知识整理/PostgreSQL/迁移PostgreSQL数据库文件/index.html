@@ -9,7 +9,7 @@
     
     <title>
         
-            Crontab的使用方式 |
+            迁移PostgreSQL数据库文件 |
         
         ToL
     </title>
@@ -166,7 +166,7 @@
         <div class="article-content-container">
 
             <div class="article-title">
-                <span class="title-hover-animation">Crontab的使用方式</span>
+                <span class="title-hover-animation">迁移PostgreSQL数据库文件</span>
             </div>
 
             
@@ -186,13 +186,13 @@
         
             <i class="fa-regular fa-calendar-plus"></i>&nbsp;
         
-        <span class="pc">2024-03-01 10:09:36</span>
-        <span class="mobile">2024-03-01 10:09</span>
+        <span class="pc">2024-03-07 11:07:15</span>
+        <span class="mobile">2024-03-07 11:07</span>
     </span>
     
         <span class="article-update-date article-meta-item">
         <i class="fas fa-file-pen"></i>&nbsp;
-        <span class="pc">2024-03-01 10:09:36</span>
+        <span class="pc">2024-03-07 11:07:15</span>
     </span>
     
     
@@ -205,7 +205,7 @@
                     </li>
                 
                     <li>
-                        &gt; <a href="/categories/%E7%9F%A5%E8%AF%86%E6%95%B4%E7%90%86/Linux/">Linux</a>&nbsp;
+                        &gt; <a href="/categories/%E7%9F%A5%E8%AF%86%E6%95%B4%E7%90%86/PostgreSQL/">PostgreSQL</a>&nbsp;
                     </li>
                 
             </ul>
@@ -217,11 +217,7 @@
             <ul>
                 
                     <li>
-                        <a href="/tags/Linux/">Linux</a>&nbsp;
-                    </li>
-                
-                    <li>
-                        | <a href="/tags/Crontab/">Crontab</a>&nbsp;
+                        <a href="/tags/PostgreSQL/">PostgreSQL</a>&nbsp;
                     </li>
                 
             </ul>
@@ -242,28 +238,32 @@
             <div class="article-content keep-markdown-body">
                 
 
-                <h1 id="Crontab"><a href="#Crontab" class="headerlink" title="Crontab"></a>Crontab</h1><p>crontab 是一个位于 &#x2F;etc&#x2F;crontab 的文件，可以在这个文件中指定需要定时运行的命令，每一行分为“时间”、“命令”和“用户”三部分：</p>
-<ul>
-<li>“时间”是一个 5 位的 cron 表达式，依次为“分”、“时”、“一月中的某一天”、“年”和“一周中的某一天”</li>
-<li>“命令”是定时执行的命令</li>
-<li>“用户”是用于执行命令的用户</li>
-</ul>
-<h2 id="关于-day-of-month-和-day-of-week"><a href="#关于-day-of-month-和-day-of-week" class="headerlink" title="关于 day of month 和 day of week"></a>关于 day of month 和 day of week</h2><p>day of month 和 day of week 不是互斥的，根据<a class="link"   target="_blank" rel="noopener" href="https://unix.stackexchange.com/questions/602328/are-the-day-of-month-and-day-of-week-crontab-fields-mutually-exclusive" >网上资料<i class="fas fa-external-link-alt"></i></a>所说，它们遵循如下规则：</p>
-<ul>
-<li>如果 month 、 day of month 和 day of week 都是 <code>*</code> 则<strong>每天</strong>都执行命令</li>
-<li>如果 month <strong>或</strong> day of month 有具体值，但是 day of week 是 <code>*</code> ，则由 month <strong>和</strong> day of month 确定哪天执行命令</li>
-<li>如果 month <strong>和</strong> day of month 都是 <code>*</code> ，但是 day of week 有具体值，则由 day of week 确定哪天执行命令</li>
-<li>最后，如果 month <strong>或</strong> day of month 有具体值，同时 day of week 也有具体值，则<ol>
-<li>能够匹配 month <strong>和</strong> day of month 的日期将执行命令</li>
-<li>能够匹配 day of week 的日期也将执行命令</li>
-</ol>
-</li>
-</ul>
-<h2 id="关于-crontab-的工作目录"><a href="#关于-crontab-的工作目录" class="headerlink" title="关于 crontab 的工作目录"></a>关于 crontab 的工作目录</h2><p>crontab 的工作目录比较特殊，<a class="link"   target="_blank" rel="noopener" href="https://cronitor.io/guides/cron-job-working-directory" >网上的教程<i class="fas fa-external-link-alt"></i></a>说默认的工作目录是定时任务的拥有者的 home 目录，但是我实践下来发现我在脚本中编写的重定向（ <code>echo xxx &gt; yyy.log</code> ）没有把文件输出在 home 目录下，所以我建议在配置 crontab 的时候（或者在脚本内）主动执行一次 <code>cd</code> ：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">* * * * * cd /root ; ./report-server-status.sh root</span><br></pre></td></tr></table></figure>
+                <h1 id="Windows"><a href="#Windows" class="headerlink" title="Windows"></a>Windows</h1><p>Windows 基于这篇文章裁剪、翻译和完善而来：<a class="link"   target="_blank" rel="noopener" href="https://radumas.info/blog/tutorial/2016/08/08/Migrating-PostgreSQL-Data-Directory-Windows.html" >How to Migrate your PostgreSQL Data Directory in Windows<i class="fas fa-external-link-alt"></i></a></p>
+<h2 id="第一步：停止服务"><a href="#第一步：停止服务" class="headerlink" title="第一步：停止服务"></a>第一步：停止服务</h2><p>在 service 中找到 postgresql 的服务，将其停止</p>
+<h2 id="第二步：移动数据库文件夹"><a href="#第二步：移动数据库文件夹" class="headerlink" title="第二步：移动数据库文件夹"></a>第二步：移动数据库文件夹</h2><p>如果你使用 EnterpriseDB 提供的安装包，并且使用默认的安装路径的话，你的数据库文件夹可能位于：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">C:\Program Files\PostgreSQL\xx\data</span><br></pre></td></tr></table></figure>
 
-<h2 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h2><p>下列配置会每分钟用 root 账号执行一次 report-server-status.sh 脚本：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">* * * * * /root/report-server-status.sh root</span><br></pre></td></tr></table></figure>
+<p>其中 <code>xx</code> 是数据库的大版本号。</p>
+<p>你可以将这个文件夹移动到其他地方，例如：<code>D:\pg16_data</code></p>
+<h2 id="第三步：修改服务可执行文件路径"><a href="#第三步：修改服务可执行文件路径" class="headerlink" title="第三步：修改服务可执行文件路径"></a>第三步：修改服务可执行文件路径</h2><p>再次在 service 中找到 postgresql 服务，查看其属性，找到“可执行文件的路径”，把路径完整的复制下来。拿我的举例，我的路径是：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&quot;C:\Program Files\PostgreSQL\16\bin\pg_ctl.exe&quot; runservice -N &quot;postgresql-x64-16&quot; -D &quot;C:\Program Files\PostgreSQL\16\data&quot; -w</span><br></pre></td></tr></table></figure>
+
+<p>注意 <code>-D</code> 参数后的路径 <code>&quot;C:\Program Files\PostgreSQL\16\data&quot;</code> ，这就是数据文件的目录，我们要把它替换成 <code>D:\pg16_data</code> 。</p>
+<p>使用管理员权限打开 cmd ，执行下列命令修改可执行文件的路径：</p>
+<figure class="highlight bat"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sc config postgresql-x64-<span class="number">16</span> binPath=&quot;\&quot;C:\Program Files\PostgreSQL\<span class="number">16</span>\bin\pg_ctl.exe\&quot; runservice -N \&quot;postgresql-x64-<span class="number">16</span>\&quot; -D \&quot;D:\pg16_data&quot; -w&quot;</span><br></pre></td></tr></table></figure>
+
+<p>其中 <code>postgresql-x64-16</code> 是服务的名称，注意路径中的双引号需要转义。</p>
+<h2 id="第四步：修改文件夹和父文件夹的权限"><a href="#第四步：修改文件夹和父文件夹的权限" class="headerlink" title="第四步：修改文件夹和父文件夹的权限"></a>第四步：修改文件夹和父文件夹的权限</h2><p>打开资源管理器，进入“此电脑”，右键点击磁盘 <code>D</code> ，选择属性，依次点击“安全”、“编辑”和“添加”。在“输入对象名称来选择”中输入 <code>network service</code> ，然后点击“检查名称”：</p>
+<img src="/2024/03/07/%E7%9F%A5%E8%AF%86%E6%95%B4%E7%90%86/PostgreSQL/%E8%BF%81%E7%A7%BBPostgreSQL%E6%95%B0%E6%8D%AE%E5%BA%93%E6%96%87%E4%BB%B6/pic1.png" class="">
+
+<p>然后将 NETWORK SERVICE 的权限修改为“读取和执行”、“列出文件夹内容”和“读取”：</p>
+<img src="/2024/03/07/%E7%9F%A5%E8%AF%86%E6%95%B4%E7%90%86/PostgreSQL/%E8%BF%81%E7%A7%BBPostgreSQL%E6%95%B0%E6%8D%AE%E5%BA%93%E6%96%87%E4%BB%B6/pic2.png" class="">
+
+<p>接下来，再按相同步骤修改 <code>D:\pg16_data</code> 的权限，但是此时 NETWORK SERVICE 拥有<strong>所有</strong>权限：</p>
+<img src="/2024/03/07/%E7%9F%A5%E8%AF%86%E6%95%B4%E7%90%86/PostgreSQL/%E8%BF%81%E7%A7%BBPostgreSQL%E6%95%B0%E6%8D%AE%E5%BA%93%E6%96%87%E4%BB%B6/pic3.png" class="">
+
+<h2 id="第五步：重启服务"><a href="#第五步：重启服务" class="headerlink" title="第五步：重启服务"></a>第五步：重启服务</h2><p>在 service 中找到 postgresql 并启动。</p>
+
             </div>
 
             
@@ -272,11 +272,7 @@
                 <ul class="post-tags-box">
                     
                         <li class="tag-item">
-                            <a href="/tags/Linux/">#Linux</a>&nbsp;
-                        </li>
-                    
-                        <li class="tag-item">
-                            <a href="/tags/Crontab/">#Crontab</a>&nbsp;
+                            <a href="/tags/PostgreSQL/">#PostgreSQL</a>&nbsp;
                         </li>
                     
                 </ul>
@@ -285,29 +281,14 @@
             
                 <div class="article-nav">
                     
-                        <div class="article-prev">
-                            <a class="prev"
-                               rel="prev"
-                               href="/2024/03/07/%E7%9F%A5%E8%AF%86%E6%95%B4%E7%90%86/PostgreSQL/%E8%BF%81%E7%A7%BBPostgreSQL%E6%95%B0%E6%8D%AE%E5%BA%93%E6%96%87%E4%BB%B6/"
-                            >
-                            <span class="left arrow-icon flex-center">
-                              <i class="fas fa-chevron-left"></i>
-                            </span>
-                                <span class="title flex-center">
-                                <span class="post-nav-title-item">迁移PostgreSQL数据库文件</span>
-                                <span class="post-nav-item">上一篇</span>
-                            </span>
-                            </a>
-                        </div>
-                    
                     
                         <div class="article-next">
                             <a class="next"
                                rel="next"
-                               href="/2024/03/01/%E7%9F%A5%E8%AF%86%E6%95%B4%E7%90%86/%E8%84%9A%E6%9C%AC/Bash%E8%84%9A%E6%9C%AC%E7%AC%94%E8%AE%B0/"
+                               href="/2024/03/01/%E7%9F%A5%E8%AF%86%E6%95%B4%E7%90%86/Linux/Crontab%E7%9A%84%E4%BD%BF%E7%94%A8%E6%96%B9%E5%BC%8F/"
                             >
                             <span class="title flex-center">
-                                <span class="post-nav-title-item">Bash脚本笔记</span>
+                                <span class="post-nav-title-item">Crontab的使用方式</span>
                                 <span class="post-nav-item">下一篇</span>
                             </span>
                                 <span class="right arrow-icon flex-center">
@@ -326,7 +307,7 @@
             <div class="toc-content-container">
                 <div class="post-toc-wrap">
     <div class="post-toc">
-        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Crontab"><span class="nav-number">1.</span> <span class="nav-text">Crontab</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B3%E4%BA%8E-day-of-month-%E5%92%8C-day-of-week"><span class="nav-number">1.1.</span> <span class="nav-text">关于 day of month 和 day of week</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B3%E4%BA%8E-crontab-%E7%9A%84%E5%B7%A5%E4%BD%9C%E7%9B%AE%E5%BD%95"><span class="nav-number">1.2.</span> <span class="nav-text">关于 crontab 的工作目录</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BE%8B%E5%AD%90"><span class="nav-number">1.3.</span> <span class="nav-text">例子</span></a></li></ol></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Windows"><span class="nav-number">1.</span> <span class="nav-text">Windows</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E4%B8%80%E6%AD%A5%EF%BC%9A%E5%81%9C%E6%AD%A2%E6%9C%8D%E5%8A%A1"><span class="nav-number">1.1.</span> <span class="nav-text">第一步：停止服务</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E4%BA%8C%E6%AD%A5%EF%BC%9A%E7%A7%BB%E5%8A%A8%E6%95%B0%E6%8D%AE%E5%BA%93%E6%96%87%E4%BB%B6%E5%A4%B9"><span class="nav-number">1.2.</span> <span class="nav-text">第二步：移动数据库文件夹</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E4%B8%89%E6%AD%A5%EF%BC%9A%E4%BF%AE%E6%94%B9%E6%9C%8D%E5%8A%A1%E5%8F%AF%E6%89%A7%E8%A1%8C%E6%96%87%E4%BB%B6%E8%B7%AF%E5%BE%84"><span class="nav-number">1.3.</span> <span class="nav-text">第三步：修改服务可执行文件路径</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E5%9B%9B%E6%AD%A5%EF%BC%9A%E4%BF%AE%E6%94%B9%E6%96%87%E4%BB%B6%E5%A4%B9%E5%92%8C%E7%88%B6%E6%96%87%E4%BB%B6%E5%A4%B9%E7%9A%84%E6%9D%83%E9%99%90"><span class="nav-number">1.4.</span> <span class="nav-text">第四步：修改文件夹和父文件夹的权限</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E4%BA%94%E6%AD%A5%EF%BC%9A%E9%87%8D%E5%90%AF%E6%9C%8D%E5%8A%A1"><span class="nav-number">1.5.</span> <span class="nav-text">第五步：重启服务</span></a></li></ol></li></ol>
     </div>
 </div>
 
