@@ -9,7 +9,7 @@
     
     <title>
         
-            标签: linux |
+            Maven多模块笔记 |
         
         ToL
     </title>
@@ -83,7 +83,7 @@
                         </li>
                     
                         <li class="menu-item">
-                            <a class="active"
+                            <a class=""
                                href="/tags"
                             >
                                 标签
@@ -132,7 +132,7 @@
                 </li>
             
                 <li class="drawer-menu-item flex-center">
-                    <a class="active"
+                    <a class=""
                        href="/tags">标签</a>
                 </li>
             
@@ -162,42 +162,144 @@
 
                 
                     <div class="fade-in-down-animation">
-    <div class="tag-container">
-        <div class="tag-name"><i class="fas fa-tag"></i>&nbsp;linux
-        </div>
-        <div class="tag-post-list">
-            
-<div class="archive-list-container">
-    
-        <section class="archive-item">
-            <div class="archive-item-header">
-                <span class="archive-year">2024</span>
-                <span class="archive-year-post-count">[1]</span>
+    <div class="post-page-container">
+        <div class="article-content-container">
+
+            <div class="article-title">
+                <span class="title-hover-animation">Maven多模块笔记</span>
             </div>
-            <ul class="article-list">
+
+            
+                <div class="article-header">
+                    <div class="avatar">
+                        <img src="/images/avatar.jpg">
+                    </div>
+                    <div class="info">
+                        <div class="author">
+                            <span class="name">Saya</span>
+                            
+                        </div>
+                        <div class="meta-info">
+                            
+<div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        
+            <i class="fa-regular fa-calendar-plus"></i>&nbsp;
+        
+        <span class="pc">2024-03-20 21:14:16</span>
+        <span class="mobile">2024-03-20 21:14</span>
+    </span>
+    
+        <span class="article-update-date article-meta-item">
+        <i class="fas fa-file-pen"></i>&nbsp;
+        <span class="pc">2024-03-20 21:14:16</span>
+    </span>
+    
+    
+        <span class="article-categories article-meta-item">
+            <i class="fas fa-folder"></i>&nbsp;
+            <ul>
                 
-                    <li class="article-item">
-                        <a class="article-title"
-                           href="/2024/03/01/%E7%9F%A5%E8%AF%86%E6%95%B4%E7%90%86/%E8%84%9A%E6%9C%AC/Bash%E8%84%9A%E6%9C%AC%E7%AC%94%E8%AE%B0/"
-                        >Bash脚本笔记</a>
-                        <span class="article-date">03-01</span>
+                    <li>
+                        <a href="/categories/%E7%9F%A5%E8%AF%86%E6%95%B4%E7%90%86/">知识整理</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        &gt; <a href="/categories/%E7%9F%A5%E8%AF%86%E6%95%B4%E7%90%86/Java/">Java</a>&nbsp;
                     </li>
                 
             </ul>
-        </section>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fas fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/Java/">Java</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/Maven/">Maven</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+    
     
 </div>
 
+                        </div>
+                    </div>
+                </div>
+            
+
+            <div class="article-content keep-markdown-body">
+                
+
+                <h1 id="统一依赖管理，以及统一依赖和插件的版本管理"><a href="#统一依赖管理，以及统一依赖和插件的版本管理" class="headerlink" title="统一依赖管理，以及统一依赖和插件的版本管理"></a>统一依赖管理，以及统一依赖和插件的版本管理</h1><p>在父模块 pom 文件的 <code>/project/dependencyManagement/dependencies</code> 中声明的依赖版本可以直接被子模块使用，子模块在声明相同的依赖时，可以忽略 <code>&lt;version&gt;</code> 标签。</p>
+<p>在父模块 pom 文件的 <code>/project/build/pluginManagement/plugins</code> 中定义的插件版本和配置可以直接被子模块使用，子模块在使用相同的插件时，可以忽略插件的版本和配置。</p>
+<p>在父模块 pom 文件的 <code>/project/dependencies</code> 中声明的依赖会传递到子模块，子模块不需要再声明相同的依赖。</p>
+<h1 id="插件的默认-groupId"><a href="#插件的默认-groupId" class="headerlink" title="插件的默认 groupId"></a>插件的默认 groupId</h1><p>如果在使用插件时没有指定 <code>&lt;groupId&gt;</code> ，则默认为 <code>org.apache.maven.plugins</code> 。</p>
+
+            </div>
+
+            
+
+            
+                <ul class="post-tags-box">
+                    
+                        <li class="tag-item">
+                            <a href="/tags/Java/">#Java</a>&nbsp;
+                        </li>
+                    
+                        <li class="tag-item">
+                            <a href="/tags/Maven/">#Maven</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            
+
+            
+                <div class="article-nav">
+                    
+                    
+                        <div class="article-next">
+                            <a class="next"
+                               rel="next"
+                               href="/2024/03/20/%E7%9F%A5%E8%AF%86%E6%95%B4%E7%90%86/Java/%E9%85%8D%E7%BD%AEtomcat%E7%9A%84Context/"
+                            >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">配置tomcat的Context</span>
+                                <span class="post-nav-item">下一篇</span>
+                            </span>
+                                <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                            </a>
+                        </div>
+                    
+                </div>
+            
+
+            
         </div>
+
+        
+            <div class="toc-content-container">
+                <div class="post-toc-wrap">
+    <div class="post-toc">
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%BB%9F%E4%B8%80%E4%BE%9D%E8%B5%96%E7%AE%A1%E7%90%86%EF%BC%8C%E4%BB%A5%E5%8F%8A%E7%BB%9F%E4%B8%80%E4%BE%9D%E8%B5%96%E5%92%8C%E6%8F%92%E4%BB%B6%E7%9A%84%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86"><span class="nav-number">1.</span> <span class="nav-text">统一依赖管理，以及统一依赖和插件的版本管理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%8F%92%E4%BB%B6%E7%9A%84%E9%BB%98%E8%AE%A4-groupId"><span class="nav-number">2.</span> <span class="nav-text">插件的默认 groupId</span></a></li></ol>
     </div>
-
-    <div class="tag-paginator">
-        <div class="paginator">
-    
-
-    
 </div>
 
+            </div>
+        
     </div>
 </div>
 
@@ -234,6 +336,23 @@
         </div>
     </div>
 
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item flex-center toggle-show-toc">
+                <i class="fas fa-list"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+    </ul>
+</div>
+
+        </div>
     
 
     <div class="right-bottom-side-tools">
@@ -298,60 +417,13 @@
 
 <div class="post-scripts">
     
-</div>
-
-
-
-</body>
-</html>
-        </li>
-
-        <!-- rss -->
+        <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/js/post-helper.js"></script>
         
-
+            <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/js/libs/anime.min.js"></script>
         
-            <li class="tools-item tool-scroll-to-top flex-center">
-                <i class="fas fa-arrow-up"></i>
-            </li>
         
-
-        <li class="tools-item tool-scroll-to-bottom flex-center">
-            <i class="fas fa-arrow-down"></i>
-        </li>
-    </ul>
-
-    <ul class="exposed-tools-list">
-        <li class="tools-item tool-toggle-show flex-center">
-            <i class="fas fa-cog fa-spin"></i>
-        </li>
+            <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/js/toc.js"></script>
         
-    </ul>
-</div>
-
-    </div>
-
-    <div class="zoom-in-image-mask">
-    <img class="zoom-in-image">
-</div>
-
-
-    
-
-</main>
-
-
-
-<script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/js/utils.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/js/main.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/js/header-shrink.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/js/back2top.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/js/dark-light-toggle.js"></script>
-
-
-
-
-
-
-
-
-
-<div class="post-scripts">
     
 </div>
 
